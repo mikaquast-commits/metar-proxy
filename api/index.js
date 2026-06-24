@@ -1,10 +1,7 @@
-// Vercel Serverless Function â€“ METAR Proxy
-// Pfad im Projekt: api/index.js
-
-export default async function handler(req, res) {
+// api/index.js
+module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   if (req.method === "OPTIONS") return res.status(200).end();
 
   const { icao, year, month, day } = req.query;
@@ -18,16 +15,16 @@ export default async function handler(req, res) {
   const next = new Date(Date.UTC(y, m - 1, d + 1));
 
   const iemUrl =
-    `https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py` +
-    `?station=${icao.toUpperCase()}` +
-    `&data=metar` +
-    `&year1=${y}&month1=${m}&day1=${d}` +
-    `&year2=${next.getUTCFullYear()}&month2=${next.getUTCMonth() + 1}&day2=${next.getUTCDate()}` +
-    `&tz=UTC&format=onlycomma&latlon=no&missing=M&trace=T&direct=no&report_type=3,4`;
+    "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py" +
+    "?station=" + icao.toUpperCase() +
+    "&data=metar" +
+    "&year1=" + y + "&month1=" + m + "&day1=" + d +
+    "&year2=" + next.getUTCFullYear() + "&month2=" + (next.getUTCMonth() + 1) + "&day2=" + next.getUTCDate() +
+    "&tz=UTC&format=onlycomma&latlon=no&missing=M&trace=T&direct=no&report_type=3,4";
 
   try {
     const iemRes = await fetch(iemUrl);
-    if (!iemRes.ok) throw new Error(`IEM returned HTTP ${iemRes.status}`);
+    if (!iemRes.ok) throw new Error("IEM returned HTTP " + iemRes.status);
     const text = await iemRes.text();
 
     const metars = text
@@ -38,13 +35,13 @@ export default async function handler(req, res) {
       })
       .map(line => {
         const parts = line.split(",");
-        if (parts.length >= 3) return { time: parts[1]?.trim(), raw: parts[2]?.trim() };
+        if (parts.length >= 3) return { time: parts[1].trim(), raw: parts[2].trim() };
         return null;
       })
       .filter(Boolean);
 
-    return res.status(200).json({ metars, count: metars.length });
+    return res.status(200).json({ metars: metars, count: metars.length });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
-}
+};
