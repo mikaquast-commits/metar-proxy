@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/metar", "destination": "/api/index" }
+  ]
+}
