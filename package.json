@@ -1,0 +1,7 @@
+{
+  "name": "metar-proxy",
+  "version": "1.0.0",
+  "description": "Serverless METAR proxy – fetches IEM data without CORS issues",
+  "private": true,
+  "engines": { "node": ">=18" }
+}
