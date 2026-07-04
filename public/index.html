@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>METAR Poster – Das Wetter deiner Geburt</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0A0F1E; color: #fff; font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; }
+  nav { padding: 16px 32px; border-bottom: 1px solid #1E2A3A; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'Space Mono', monospace; font-size: 16px; letter-spacing: 0.1em; }
+  .logo span { color: #E8A430; }
+  .logo em { color: #64748B; font-style: normal; }
+  .tagline { font-size: 12px; color: #64748B; letter-spacing: 0.1em; }
+  .hero { padding: 48px 32px 32px; text-align: center; max-width: 640px; margin: 0 auto; }
+  .hero-label { font-size: 12px; letter-spacing: 0.3em; color: #E8A430; margin-bottom: 12px; }
+  h1 { font-size: clamp(26px, 5vw, 40px); font-weight: 700; line-height: 1.15; margin-bottom: 14px; }
+  h1 span { color: #E8A430; }
+  .hero p { color: #64748B; font-size: 15px; line-height: 1.6; }
+  .main { display: flex; gap: 32px; padding: 0 32px 48px; max-width: 1060px; margin: 0 auto; align-items: flex-start; flex-wrap: wrap; }
+  .steps { flex: 1 1 340px; min-width: 280px; }
+  .card { background: #111827; border: 1px solid #1E2A3A; border-radius: 12px; padding: 24px; margin-bottom: 16px; transition: opacity 0.3s, border-color 0.3s; }
+  .card.active { border-color: #E8A430; }
+  .card.faded { opacity: 0.4; pointer-events: none; }
+  .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .step-circle { width: 28px; height: 28px; border-radius: 50%; background: #1E2A3A; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #64748B; flex-shrink: 0; transition: background 0.3s; }
+  .step-circle.done { background: #E8A430; color: #0A0F1E; }
+  .card-title { font-weight: 600; font-size: 15px; }
+  .card-sub { font-size: 12px; color: #64748B; margin-top: 2px; }
+  .row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; background: #1E2A3A; border: none; border-radius: 8px; padding: 10px 14px; color: #fff; font-family: 'Space Mono', monospace; font-size: 15px; letter-spacing: 0.1em; outline: none; }
+  select { background: #1E2A3A; border: 1px solid #2D3A4A; border-radius: 8px; padding: 10px; color: #fff; font-family: 'Inter', sans-serif; font-size: 14px; outline: none; cursor: pointer; color-scheme: dark; }
+  .selects { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .selects select:first-child { flex: 1 1 60px; }
+  .selects select:nth-child(2) { flex: 2 1 110px; }
+  .selects select:last-child { flex: 1 1 75px; }
+  button { background: #1E2A3A; color: #64748B; border: none; border-radius: 8px; padding: 10px 20px; font-weight: 700; font-size: 14px; cursor: not-allowed; white-space: nowrap; transition: background 0.2s; }
+  button.on { background: #E8A430; color: #0A0F1E; cursor: pointer; }
+  button.on:hover { background: #f0b040; }
+  button.full { width: 100%; padding: 12px; }
+  button.buy { width: 100%; padding: 14px; font-size: 15px; }
+  .success { margin-top: 12px; padding: 10px 14px; background: #166534; border-radius: 8px; }
+  .success-title { color: #4ADE80; font-weight: 600; font-size: 13px; }
+  .success-sub { color: #4ADE80; font-size: 12px; opacity: 0.8; }
+  .error { color: #EF4444; font-size: 13px; margin-top: 10px; }
+  .metar-raw { margin-top: 10px; padding: 10px 12px; background: #1E2A3A; border-radius: 8px; font-size: 11px; font-family: 'Space Mono', monospace; color: #4ADE80; word-break: break-all; line-height: 1.6; }
+  .suggestions { margin-top: 8px; background: #1E2A3A; border-radius: 8px; overflow: hidden; }
+  .suggestion { padding: 10px 14px; cursor: pointer; font-size: 13px; border-bottom: 1px solid #0A0F1E; display: flex; gap: 12px; }
+  .suggestion:hover { background: #111827; }
+  .suggestion .icao { font-family: 'Space Mono', monospace; color: #E8A430; min-width: 50px; }
+  .suggestion .name { flex: 1; }
+  .suggestion .year { color: #64748B; font-size: 11px; }
+  .price-table div { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #1E2A3A; font-size: 13px; }
+  .price-table span:first-child { color: #64748B; }
+  .price-table span:last-child { font-weight: 500; }
+  .price-table { margin-bottom: 16px; }
+
+  /* Poster */
+  .poster-col { flex: 1 1 280px; min-width: 240px; max-width: 360px; margin: 0 auto; }
+  .poster-label { font-size: 11px; letter-spacing: 0.2em; color: #64748B; margin-bottom: 12px; text-align: center; }
+  .poster-wrap { width: 100%; aspect-ratio: 2/3; background: #1E2A3A; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; color: #64748B; font-family: 'Space Mono', monospace; font-size: 13px; }
+  .poster-wrap.has-data { background: #F5F0E8; flex-direction: column; align-items: stretch; justify-content: flex-start; padding: 6% 7%; position: relative; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  .scanlines { position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.025) 3px, rgba(0,0,0,0.025) 4px); z-index: 10; }
+  .poster-header { border-bottom: 2px solid #0A0F1E; padding-bottom: 4%; margin-bottom: 4%; }
+  .poster-obs { font-size: clamp(6px, 1.3vw, 8px); letter-spacing: 0.3em; color: #64748B; margin-bottom: 2%; }
+  .poster-icao { font-size: clamp(20px, 5.5vw, 36px); font-weight: 700; color: #0A0F1E; line-height: 1; font-family: 'Space Mono', monospace; }
+  .poster-airport { font-size: clamp(6px, 1.2vw, 8px); color: #64748B; margin-top: 1%; letter-spacing: 0.08em; font-family: 'Space Mono', monospace; }
+  .poster-dayname { font-size: clamp(5px, 1vw, 7px); letter-spacing: 0.35em; color: #A06A10; margin-bottom: 1%; font-family: 'Space Mono', monospace; }
+  .poster-daterow { display: flex; align-items: baseline; gap: 3%; }
+  .poster-day { font-size: clamp(30px, 8.5vw, 54px); font-weight: 700; color: #0A0F1E; line-height: 1; font-family: 'Space Mono', monospace; }
+  .poster-mon { font-size: clamp(12px, 3.2vw, 20px); font-weight: 700; color: #0A0F1E; font-family: 'Space Mono', monospace; }
+  .poster-year { font-size: clamp(9px, 2vw, 13px); color: #64748B; font-family: 'Space Mono', monospace; }
+  .poster-divider { height: 1px; background: linear-gradient(90deg, #E8A430, transparent); margin: 4% 0; }
+  .poster-metar-label { font-size: clamp(5px, 0.9vw, 6px); letter-spacing: 0.3em; color: #A06A10; margin-bottom: 2%; font-family: 'Space Mono', monospace; }
+  .poster-metar-raw { font-size: clamp(5px, 1.1vw, 7.5px); color: #0A0F1E; line-height: 1.65; word-break: break-all; background: rgba(0,0,0,0.05); padding: 3%; border-radius: 3px; margin-bottom: 4%; font-family: 'Space Mono', monospace; }
+  .poster-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 3% 5%; }
+  .poster-field { border-top: 1px solid #E8E0D0; padding-top: 8%; }
+  .poster-field-key { font-size: clamp(4px, 0.8vw, 6px); color: #A06A10; letter-spacing: 0.2em; margin-bottom: 3%; font-family: 'Space Mono', monospace; }
+  .poster-field-val { font-size: clamp(6px, 1.2vw, 8px); color: #0A0F1E; font-weight: 700; font-family: 'Space Mono', monospace; }
+  .poster-footer { margin-top: 4%; padding-top: 3%; border-top: 1px solid #E8E0D0; display: flex; justify-content: space-between; }
+  .poster-footer span { font-size: clamp(4px, 0.8vw, 6px); font-family: 'Space Mono', monospace; }
+  .poster-footer span:last-child { color: #E8A430; }
+  .poster-hint { font-size: 11px; opacity: 0.5; }
+  .poster-note { text-align: center; margin-top: 12px; font-size: 12px; color: #64748B; }
+
+  @media (max-width: 600px) {
+    nav { padding: 12px 16px; }
+    .hero { padding: 32px 16px 24px; }
+    .main { padding: 0 16px 32px; gap: 24px; }
+    .tagline { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><span>METAR</span><em>POSTER</em></div>
+  <div class="tagline">DAS WETTER DEINER GEBURT</div>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">LIMITIERTES POSTER</div>
+  <h1>Das echte Wetter<br><span>an deinem Geburtstag</span></h1>
+  <p>Wähle Flughafen, Datum und Uhrzeit — wir drucken das originale METAR als hochwertiges Poster.</p>
+</div>
+
+<div class="main">
+  <div class="steps">
+
+    <!-- Step 1 -->
+    <div class="card active" id="card1">
+      <div class="card-header">
+        <div class="step-circle" id="circle1">1</div>
+        <div>
+          <div class="card-title">Flughafen wählen</div>
+          <div class="card-sub">ICAO-Code oder Stadtname</div>
+        </div>
+      </div>
+      <div class="row">
+        <input type="text" id="icaoInput" placeholder="ICAO (EDDM), IATA (MUC) oder Name" maxlength="20">
+        <button class="on" onclick="handleSearch()">Suchen</button>
+      </div>
+      <div id="suggestions" class="suggestions" style="display:none"></div>
+      <div id="airportError" class="error" style="display:none"></div>
+      <div id="airportSuccess" class="success" style="display:none">
+        <div class="success-title" id="airportSuccessTitle"></div>
+        <div class="success-sub" id="airportSuccessSub"></div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="card faded" id="card2">
+      <div class="card-header">
+        <div class="step-circle" id="circle2">2</div>
+        <div>
+          <div class="card-title">Datum wählen</div>
+          <div class="card-sub" id="dateSub">Erst Flughafen wählen</div>
+        </div>
+      </div>
+      <div class="selects">
+        <select id="selDay"><option value="">Tag</option></select>
+        <select id="selMonth">
+          <option value="">Monat</option>
+          <option value="1">Januar</option><option value="2">Februar</option>
+          <option value="3">März</option><option value="4">April</option>
+          <option value="5">Mai</option><option value="6">Juni</option>
+          <option value="7">Juli</option><option value="8">August</option>
+          <option value="9">September</option><option value="10">Oktober</option>
+          <option value="11">November</option><option value="12">Dezember</option>
+        </select>
+        <select id="selYear"><option value="">Jahr</option></select>
+      </div>
+      <button class="full" id="loadBtn" onclick="handleDateSearch()">METARs laden →</button>
+      <div id="metarError" class="error" style="display:none"></div>
+      <div id="metarSuccess" class="success" style="display:none">
+        <div class="success-title" id="metarSuccessTitle"></div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="card faded" id="card3">
+      <div class="card-header">
+        <div class="step-circle" id="circle3">3</div>
+        <div>
+          <div class="card-title">Uhrzeit wählen</div>
+          <div class="card-sub" id="timeSub">Erst Datum laden</div>
+        </div>
+      </div>
+      <select id="selTime" style="width:100%" onchange="handleTimeSelect()">
+        <option value="">Uhrzeit wählen (UTC)</option>
+      </select>
+      <div id="selectedRaw" class="metar-raw" style="display:none"></div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="card faded" id="card4">
+      <div class="card-header">
+        <div class="step-circle" id="circle4">4</div>
+        <div>
+          <div class="card-title">Poster bestellen</div>
+          <div class="card-sub">30×40 cm · Hochwertiger Druck</div>
+        </div>
+      </div>
+      <div class="price-table">
+        <div><span>Format</span><span>30 × 40 cm</span></div>
+        <div><span>Material</span><span>230g Kunstdruckpapier</span></div>
+        <div><span>Lieferung</span><span>5–7 Werktage</span></div>
+        <div><span>Preis</span><span>CHF 39.–</span></div>
+      </div>
+      <button class="buy" id="buyBtn">In den Warenkorb →</button>
+    </div>
+
+  </div>
+
+  <!-- Poster Preview -->
+  <div class="poster-col">
+    <div class="poster-label">POSTER-VORSCHAU</div>
+    <div class="poster-wrap" id="poster">
+      <div style="font-size:40px;opacity:0.2">✈</div>
+      <div>Poster-Vorschau</div>
+      <div class="poster-hint">Flughafen & Datum wählen</div>
+    </div>
+    <div class="poster-note" id="posterNote" style="display:none">Finales Poster: A2 · 300 DPI</div>
+  </div>
+</div>
+
+<script>
+const API = "https://metar-proxy.vercel.app/metar";
+
+// ICAO → {name, earliest}
+const KNOWN = {
+  EDDS:{name:"Stuttgart Airport",earliest:1939},
+  EDDM:{name:"München Franz Josef Strauß",earliest:1929},
+  EDDF:{name:"Frankfurt Airport",earliest:1928},
+  EDDL:{name:"Düsseldorf Airport",earliest:1931},
+  EDDB:{name:"Berlin Brandenburg",earliest:1940},
+  EDDT:{name:"Berlin Tegel",earliest:1936},
+  EDDH:{name:"Hamburg Airport",earliest:1928},
+  EDDC:{name:"Dresden Airport",earliest:1931},
+  EDDP:{name:"Leipzig/Halle Airport",earliest:1929},
+  EDDN:{name:"Nürnberg Airport",earliest:1931},
+  EDDK:{name:"Köln/Bonn Airport",earliest:1931},
+  EDDV:{name:"Hannover Airport",earliest:1928},
+  EDDR:{name:"Saarbrücken Airport",earliest:1935},
+  EDDG:{name:"Münster/Osnabrück Airport",earliest:1988},
+  EDDW:{name:"Bremen Airport",earliest:1929},
+  EDJA:{name:"Memmingen Airport",earliest:1937},
+  EDNY:{name:"Friedrichshafen Airport",earliest:1929},
+  EDDE:{name:"Erfurt Airport",earliest:1931},
+  LOWW:{name:"Wien Schwechat",earliest:1973},
+  LOWI:{name:"Innsbruck Airport",earliest:1973},
+  LOWS:{name:"Salzburg Airport",earliest:1973},
+  LOWG:{name:"Graz Airport",earliest:1973},
+  LSZH:{name:"Zürich Airport",earliest:1973},
+  LSGG:{name:"Genf Cointrin",earliest:1973},
+  LFSB:{name:"Basel-Mulhouse Airport",earliest:1973},
+  EGLL:{name:"London Heathrow",earliest:1973},
+  EGKK:{name:"London Gatwick",earliest:1973},
+  EGCC:{name:"Manchester Airport",earliest:1973},
+  LFPG:{name:"Paris Charles de Gaulle",earliest:1974},
+  LFPO:{name:"Paris Orly",earliest:1973},
+  EHAM:{name:"Amsterdam Schiphol",earliest:1973},
+  LEMD:{name:"Madrid Barajas",earliest:1973},
+  LEBL:{name:"Barcelona El Prat",earliest:1973},
+  LIRF:{name:"Rom Fiumicino",earliest:1973},
+  LIMC:{name:"Mailand Malpensa",earliest:1973},
+  KJFK:{name:"New York JFK",earliest:1973},
+  KLAX:{name:"Los Angeles Intl",earliest:1973},
+  KORD:{name:"Chicago O'Hare",earliest:1973},
+  KATL:{name:"Atlanta Hartsfield-Jackson",earliest:1973},
+  KSFO:{name:"San Francisco Intl",earliest:1973},
+};
+
+// IATA → ICAO mapping
+const IATA_TO_ICAO = {
+  STR:"EDDS", MUC:"EDDM", FRA:"EDDF", DUS:"EDDL", BER:"EDDB",
+  TXL:"EDDT", HAM:"EDDH", DRS:"EDDC", LEJ:"EDDP", NUE:"EDDN",
+  CGN:"EDDK", HAJ:"EDDV", SCN:"EDDR", FMO:"EDDG", BRE:"EDDW",
+  FMM:"EDJA", FDH:"EDNY", ERF:"EDDE",
+  VIE:"LOWW", INN:"LOWI", SZG:"LOWS", GRZ:"LOWG",
+  ZRH:"LSZH", GVA:"LSGG", BSL:"LFSB",
+  LHR:"EGLL", LGW:"EGKK", MAN:"EGCC",
+  CDG:"LFPG", ORY:"LFPO",
+  AMS:"EHAM",
+  MAD:"LEMD", BCN:"LEBL",
+  FCO:"LIRF", MXP:"LIMC",
+  JFK:"KJFK", LAX:"KLAX", ORD:"KORD", ATL:"KATL", SFO:"KSFO",
+};
+
+let state = { icao:"", airportName:"", earliest:1973, metars:[], selectedMetar:null };
+
+const DAY_NAMES = ["SUNDAY","MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY"];
+const MON_NAMES = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+
+function $(id) { return document.getElementById(id); }
+
+function setCard(n, active, faded) {
+  const c = $("card"+n);
+  c.classList.toggle("active", active);
+  c.classList.toggle("faded", faded);
+}
+function setCircle(n, done) {
+  const c = $("circle"+n);
+  c.classList.toggle("done", done);
+  if(done) c.textContent = "✓";
+}
+
+function buildDays(year, month) {
+  const sel = $("selDay"), prev = sel.value;
+  sel.innerHTML = '<option value="">Tag</option>';
+  const count = year && month ? new Date(year, month, 0).getDate() : 31;
+  for(let d=1; d<=count; d++) {
+    const o = document.createElement("option");
+    o.value = d; o.textContent = d;
+    sel.appendChild(o);
+  }
+  sel.value = prev;
+}
+
+function buildYears(earliest) {
+  const sel = $("selYear"), prev = sel.value;
+  sel.innerHTML = '<option value="">Jahr</option>';
+  const cur = new Date().getFullYear();
+  for(let y=cur; y>=earliest; y--) {
+    const o = document.createElement("option");
+    o.value = y; o.textContent = y;
+    sel.appendChild(o);
+  }
+  sel.value = prev;
+}
+
+function selectAirport(code, name, earliest) {
+  state.icao = code; state.airportName = name; state.earliest = earliest;
+  $("airportError").style.display = "none";
+  $("suggestions").style.display = "none";
+  $("airportSuccessTitle").textContent = "✓ " + code + " — " + name;
+  $("airportSuccessSub").textContent = "Archiv verfügbar ab " + earliest;
+  $("airportSuccess").style.display = "block";
+  $("dateSub").textContent = "Verfügbar ab " + earliest;
+  setCircle(1, true);
+  setCard(1, false, false);
+  setCard(2, true, false);
+  buildYears(earliest);
+  buildDays("","");
+  $("selDay").value=""; $("selMonth").value=""; $("selYear").value="";
+  state.metars = []; state.selectedMetar = null;
+  $("metarError").style.display="none";
+  $("metarSuccess").style.display="none";
+  $("selTime").innerHTML='<option value="">Uhrzeit wählen (UTC)</option>';
+  $("selectedRaw").style.display="none";
+  setCard(3, false, true); setCard(4, false, true);
+  setCircle(2,false); setCircle(3,false);
+  updatePoster();
+}
+
+function handleSearch() {
+  let code = $("icaoInput").value.trim().toUpperCase();
+  if(code.length < 2) { showErr("airportError","Mindestens 2 Zeichen eingeben"); return; }
+  $("airportError").style.display="none";
+  $("suggestions").style.display="none";
+
+  // IATA → ICAO Umwandlung (z.B. MUC → EDDM)
+  if(code.length === 3 && IATA_TO_ICAO[code]) {
+    code = IATA_TO_ICAO[code];
+  }
+
+  // Exakter ICAO-Treffer
+  if(KNOWN[code]) { selectAirport(code, KNOWN[code].name, KNOWN[code].earliest); return; }
+
+  // Teilsuche nach ICAO-Präfix oder Name
+  const matches = Object.entries(KNOWN).filter(([k,v]) =>
+    k.startsWith(code) || v.name.toLowerCase().includes(code.toLowerCase())
+  );
+  if(matches.length === 1) {
+    selectAirport(matches[0][0], matches[0][1].name, matches[0][1].earliest);
+  } else if(matches.length > 1) {
+    const box = $("suggestions");
+    box.innerHTML = "";
+    matches.forEach(([k,v]) => {
+      const d = document.createElement("div");
+      d.className = "suggestion";
+      d.innerHTML = `<span class="icao">${k}</span><span class="name">${v.name}</span><span class="year">ab ${v.earliest}</span>`;
+      d.onclick = () => selectAirport(k, v.name, v.earliest);
+      box.appendChild(d);
+    });
+    box.style.display = "block";
+  } else {
+    showErr("airportError", `"${code}" nicht gefunden. Bitte ICAO- (z.B. EDDM) oder IATA-Code (z.B. MUC) eingeben.`);
+  }
+}
+
+function showErr(id, msg) { const el=$(id); el.textContent="⚠ "+msg; el.style.display="block"; }
+
+async function handleDateSearch() {
+  const day=$("selDay").value, month=$("selMonth").value, year=$("selYear").value;
+  if(!day||!month||!year) { showErr("metarError","Bitte Tag, Monat und Jahr wählen"); return; }
+  const btn=$("loadBtn");
+  btn.textContent="⏳ Lade METARs..."; btn.classList.remove("on");
+  $("metarError").style.display="none"; $("metarSuccess").style.display="none";
+
+  try {
+    const res = await fetch(`${API}?icao=${state.icao}&year=${year}&month=${month}&day=${day}`);
+    if(!res.ok) throw new Error("Server Fehler: HTTP "+res.status);
+    const data = await res.json();
+    if(data.error) throw new Error(data.error);
+    if(!data.metars||!data.metars.length) throw new Error("Keine Daten für dieses Datum.");
+    state.metars = data.metars;
+    $("metarSuccessTitle").textContent = "✓ " + data.metars.length + " Beobachtungen geladen";
+    $("metarSuccess").style.display="block";
+    setCircle(2,true); setCard(2,false,false); setCard(3,true,false);
+    // Fill time dropdown
+    const sel=$("selTime");
+    sel.innerHTML='<option value="">Uhrzeit wählen (UTC)</option>';
+    const times=[...new Set(data.metars.map(m=>{
+      const match=(m.time||"").match(/(\d{2}):(\d{2})/);
+      return match?match[1]+":"+match[2]:null;
+    }).filter(Boolean))].sort();
+    times.forEach(t=>{ const o=document.createElement("option"); o.value=t; o.textContent=t+" UTC"; sel.appendChild(o); });
+    $("timeSub").textContent=data.metars.length+" Beobachtungen · ~30 Min. Takt (UTC)";
+    updatePoster();
+  } catch(e) {
+    showErr("metarError", e.message);
+  }
+  btn.textContent="METARs laden →"; btn.classList.add("on");
+}
+
+function findClosest(timeStr) {
+  const [hh,mm]=timeStr.split(":").map(Number), target=hh*60+mm;
+  let best=null, bestDiff=Infinity;
+  for(const m of state.metars) {
+    const match=(m.time||"").match(/(\d{2}):(\d{2})/);
+    if(!match) continue;
+    const diff=Math.abs(parseInt(match[1])*60+parseInt(match[2])-target);
+    if(diff<bestDiff){bestDiff=diff;best=m;}
+  }
+  return best;
+}
+
+function handleTimeSelect() {
+  const t=$("selTime").value;
+  if(!t) return;
+  state.selectedMetar = findClosest(t);
+  if(state.selectedMetar) {
+    $("selectedRaw").textContent=state.selectedMetar.raw;
+    $("selectedRaw").style.display="block";
+    setCircle(3,true); setCard(3,false,false); setCard(4,true,false);
+    $("buyBtn").classList.add("on");
+    updatePoster();
+  }
+}
+
+function decodeMETAR(raw) {
+  if(!raw) return {};
+  const wind=raw.match(/(\d{3}|VRB)(\d{2,3})(G(\d{2,3}))?KT/);
+  const vis=raw.match(/\s(\d{4})\s/);
+  const temp=raw.match(/\s(M?\d{2})\/(M?\d{2})\s/);
+  const qnh=raw.match(/[AQ](\d{4})/);
+  const clouds=raw.match(/(FEW|SCT|BKN|OVC)\d{3}/g);
+  return {
+    wind: wind?`${wind[1]}° ${wind[2]}kt${wind[4]?" G"+wind[4]+"kt":""}`:"—",
+    vis: vis?`${parseInt(vis[1])}m`:(raw.includes("CAVOK")?"CAVOK":"—"),
+    temp: temp?`${temp[1].replace("M","-")}°C / ${temp[2].replace("M","-")}°C`:"—",
+    qnh: qnh?`${qnh[1]} ${raw.includes("Q")?"hPa":"inHg"}`:"—",
+    clouds: clouds?clouds.join(" "):(raw.includes("CAVOK")?"CAVOK":"—"),
+  };
+}
+
+// ── Airport map via Overpass API ─────────────────────────────────────────────
+const AIRPORT_COORDS = {
+  EDDS:{lat:48.6900,lon:9.2220}, EDDM:{lat:48.3537,lon:11.7750},
+  EDDF:{lat:50.0333,lon:8.5706}, EDDL:{lat:51.2895,lon:6.7668},
+  EDDB:{lat:52.3667,lon:13.5033},EDDT:{lat:52.5548,lon:13.2877},
+  EDDH:{lat:53.6304,lon:9.9882}, EDDC:{lat:51.1328,lon:13.7672},
+  EDDP:{lat:51.4324,lon:12.2416},EDDN:{lat:49.4987,lon:11.0669},
+  EDDK:{lat:50.8659,lon:7.1427}, EDDV:{lat:52.4611,lon:9.6850},
+  EDDR:{lat:49.2146,lon:7.1095}, EDDG:{lat:52.1346,lon:7.6848},
+  EDDW:{lat:53.0475,lon:8.7868}, EDJA:{lat:47.9888,lon:10.2395},
+  EDNY:{lat:47.6713,lon:9.5115}, EDDE:{lat:50.9798,lon:10.9582},
+  LOWW:{lat:48.1103,lon:16.5697},LOWI:{lat:47.2600,lon:11.3436},
+  LOWS:{lat:47.7933,lon:13.0043},LOWG:{lat:46.9911,lon:15.4396},
+  LSZH:{lat:47.4647,lon:8.5492}, LSGG:{lat:46.2380,lon:6.1089},
+  LFSB:{lat:47.5896,lon:7.5299}, EGLL:{lat:51.4775,lon:-0.4614},
+  EGKK:{lat:51.1537,lon:-0.1821},EGCC:{lat:53.3537,lon:-2.2750},
+  LFPG:{lat:49.0097,lon:2.5479}, LFPO:{lat:48.7233,lon:2.3794},
+  EHAM:{lat:52.3086,lon:4.7639}, LEMD:{lat:40.4936,lon:-3.5668},
+  LEBL:{lat:41.2974,lon:2.0833}, LIRF:{lat:41.8003,lon:12.2389},
+  LIMC:{lat:45.6306,lon:8.7231}, KJFK:{lat:40.6413,lon:-73.7781},
+  KLAX:{lat:33.9425,lon:-118.408},KORD:{lat:41.9742,lon:-87.9073},
+  KATL:{lat:33.6407,lon:-84.4277},KSFO:{lat:37.6213,lon:-122.379},
+};
+
+let mapCache = {}; // Cache: icao → SVG string
+
+async function fetchAirportMap(icao) {
+  if(mapCache[icao]) return mapCache[icao];
+  const coords = AIRPORT_COORDS[icao];
+  if(!coords) return null;
+
+  const {lat, lon} = coords;
+  const radius = 6000;
+  const query = `[out:json][timeout:30];(way['aeroway'~'runway|taxiway|apron|terminal|hangar'](around:${radius},${lat},${lon}););out geom;`;
+
+  try {
+    const res = await fetch("https://overpass-api.de/api/interpreter", {
+      method: "POST",
+      body: "data=" + encodeURIComponent(query),
+      headers: {"Content-Type": "application/x-www-form-urlencoded"}
+    });
+    if(!res.ok) return null;
+    const data = await res.json();
+    const svg = buildAirportSVG(data, lat);
+    mapCache[icao] = svg;
+    return svg;
+  } catch(e) {
+    console.warn("Overpass error:", e);
+    return null;
+  }
+}
+
+function buildAirportSVG(data, centerLat) {
+  const latScale = Math.cos(centerLat * Math.PI / 180);
+  const layers = {runway:[], taxiway:[], apron:[], terminal:[]};
+
+  for(const el of (data.elements||[])) {
+    if(el.type !== "way" || !el.geometry) continue;
+    const coords = el.geometry.map(g => [g.lon * latScale * 111320, g.lat * 111320]);
+    if(coords.length < 2) continue;
+    const aeroway = (el.tags||{}).aeroway || "";
+    if(aeroway === "runway") layers.runway.push(coords);
+    else if(aeroway === "taxiway") layers.taxiway.push(coords);
+    else if(aeroway === "apron") layers.apron.push(coords);
+    else if(aeroway === "terminal" || aeroway === "hangar") layers.terminal.push(coords);
+  }
+
+  // Bounding box
+  let xs=[], ys=[];
+  for(const layer of Object.values(layers))
+    for(const coords of layer)
+      for(const [x,y] of coords){ xs.push(x); ys.push(y); }
+
+  if(xs.length===0) return null;
+
+  const pad = 0.12;
+  let minX=Math.min(...xs), maxX=Math.max(...xs);
+  let minY=Math.min(...ys), maxY=Math.max(...ys);
+  const pw=(maxX-minX)*pad, ph=(maxY-minY)*pad;
+  minX-=pw; maxX+=pw; minY-=ph; maxY+=ph;
+  const W=maxX-minX, H=maxY-minY;
+
+  // SVG viewBox: flip Y (SVG Y goes down, geo Y goes up)
+  const toSVG = ([x,y]) => `${((x-minX)/W*500).toFixed(2)},${((1-(y-minY)/H)*500).toFixed(2)}`;
+  const polyPath = coords => "M" + coords.map(toSVG).join("L") + "Z";
+  const linePath = coords => "M" + coords.map(toSVG).join("L");
+
+  const color = "#0A0F1E";
+
+  let paths = "";
+
+  // Aprons
+  for(const c of layers.apron)
+    paths += `<path d="${polyPath(c)}" fill="${color}" fill-opacity="0.15" stroke="${color}" stroke-width="0.5" stroke-opacity="0.3"/>`;
+
+  // Terminals
+  for(const c of layers.terminal)
+    paths += `<path d="${polyPath(c)}" fill="${color}" fill-opacity="0.45" stroke="${color}" stroke-width="0.5"/>`;
+
+  // Taxiways
+  for(const c of layers.taxiway)
+    paths += `<path d="${linePath(c)}" fill="none" stroke="${color}" stroke-width="1.2" stroke-opacity="0.6" stroke-linecap="round" stroke-linejoin="round"/>`;
+
+  // Runways
+  for(const c of layers.runway) {
+    paths += `<path d="${polyPath(c)}" fill="${color}" fill-opacity="1" stroke="${color}" stroke-width="0.5"/>`;
+    paths += `<path d="${linePath(c)}" fill="none" stroke="${color}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">${paths}</svg>`;
+}
+
+function renderPosterHTML(dayStr, monStr, dayName, year, m, d, timeStr) {
+  return `
+    <div class="scanlines"></div>
+    <div class="poster-header">
+      <div class="poster-obs">WEATHER OBSERVATION RECORD</div>
+      <div class="poster-icao">${state.icao}</div>
+      <div class="poster-airport">${state.airportName.toUpperCase()}</div>
+    </div>
+    <div style="margin-bottom:3%">
+      <div class="poster-dayname">${dayName}</div>
+      <div class="poster-daterow">
+        <span class="poster-day">${dayStr}</span>
+        <div>
+          <div class="poster-mon">${monStr}</div>
+          <div class="poster-year">${year}</div>
+        </div>
+      </div>
+    </div>
+    <div class="poster-divider"></div>
+    <div id="airportMapBox" style="width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;margin-bottom:3%;opacity:0.9;">
+      <div style="color:#A0AEC0;font-size:9px;font-family:'Space Mono',monospace;letter-spacing:0.2em">LADE KARTE...</div>
+    </div>
+    <div class="poster-divider"></div>
+    <div style="flex:1;overflow:hidden">
+      ${m ? `
+        <div class="poster-metar-label">METAR · ${timeStr} UTC</div>
+        <div class="poster-metar-raw">${m.raw}</div>
+        <div class="poster-fields">
+          ${[["WIND",d.wind],["SICHT",d.vis],["TEMP / TP",d.temp],["QNH",d.qnh],["WOLKEN",d.clouds]].map(([k,v])=>`
+            <div class="poster-field">
+              <div class="poster-field-key">${k}</div>
+              <div class="poster-field-val">${v}</div>
+            </div>`).join("")}
+        </div>` : `<div style="color:#64748B;font-size:clamp(7px,1.3vw,9px);font-style:italic;font-family:'Space Mono',monospace">Uhrzeit wählen für METAR-Anzeige</div>`}
+    </div>
+    <div class="poster-footer">
+      <span style="color:#64748B">IEM ASOS · © OSM contributors</span>
+      <span>WAIRWEBELONG ©</span>
+    </div>`;
+}
+
+async function updatePoster() {
+  const el=$("poster");
+  const day=$("selDay").value, month=$("selMonth").value, year=$("selYear").value;
+  if(!state.icao||!day||!month||!year) {
+    el.className="poster-wrap";
+    el.innerHTML='<div style="font-size:40px;opacity:0.2">✈</div><div>Poster-Vorschau</div><div class="poster-hint">Flughafen & Datum wählen</div>';
+    return;
+  }
+  const dateObj=new Date(Date.UTC(parseInt(year),parseInt(month)-1,parseInt(day)));
+  const dayStr=String(dateObj.getUTCDate()).padStart(2,"0");
+  const monStr=MON_NAMES[dateObj.getUTCMonth()];
+  const dayName=DAY_NAMES[dateObj.getUTCDay()];
+  const m=state.selectedMetar;
+  const d=m?decodeMETAR(m.raw):{};
+  const timeStr=m?(m.time||""):"";
+
+  el.className="poster-wrap has-data";
+  el.innerHTML = renderPosterHTML(dayStr, monStr, dayName, year, m, d, timeStr);
+  if(m) $("posterNote").style.display="block";
+
+  // Load airport map async
+  const mapBox = document.getElementById("airportMapBox");
+  if(mapBox) {
+    const svg = await fetchAirportMap(state.icao);
+    if(svg && mapBox.isConnected) {
+      mapBox.innerHTML = svg;
+    } else if(mapBox.isConnected) {
+      mapBox.innerHTML = '<div style="color:#A0AEC0;font-size:9px;font-family:\'Space Mono\',monospace;opacity:0.5">KEINE KARTENDATEN</div>';
+    }
+  }
+}
+
+// Enter key on input
+$("icaoInput").addEventListener("keydown", e => { if(e.key==="Enter") handleSearch(); });
+$("selMonth").addEventListener("change", () => buildDays($("selYear").value, $("selMonth").value));
+$("selYear").addEventListener("change", () => buildDays($("selYear").value, $("selMonth").value));
+$("selDay").addEventListener("change", () => updatePoster());
+$("selMonth").addEventListener("change", () => updatePoster());
+$("selYear").addEventListener("change", () => updatePoster());
+</script>
+</body>
+</html>
