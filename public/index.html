@@ -478,22 +478,16 @@ async function fetchAirportMap(icao) {
   if(!coords) return null;
 
   const {lat, lon} = coords;
-  const radius = 6000;
-  const query = `[out:json][timeout:30];(way['aeroway'~'runway|taxiway|apron|terminal|hangar'](around:${radius},${lat},${lon}););out geom;`;
 
   try {
-    const res = await fetch("https://overpass-api.de/api/interpreter", {
-      method: "POST",
-      body: "data=" + encodeURIComponent(query),
-      headers: {"Content-Type": "application/x-www-form-urlencoded"}
-    });
+    const res = await fetch(`/map?lat=${lat}&lon=${lon}&icao=${icao}`);
     if(!res.ok) return null;
     const data = await res.json();
     const svg = buildAirportSVG(data, lat);
     mapCache[icao] = svg;
     return svg;
   } catch(e) {
-    console.warn("Overpass error:", e);
+    console.warn("Map error:", e);
     return null;
   }
 }
