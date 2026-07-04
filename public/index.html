@@ -473,21 +473,30 @@ const AIRPORT_COORDS = {
 let mapCache = {}; // Cache: icao → SVG string
 
 async function fetchAirportMap(icao) {
-  if(mapCache[icao]) return mapCache[icao];
+  // Only use cache if it's a valid SVG (not null)
+  if(mapCache[icao] && mapCache[icao] !== null) return mapCache[icao];
   const coords = AIRPORT_COORDS[icao];
-  if(!coords) return null;
+  if(!coords) { console.warn("No coords for", icao); return null; }
 
   const {lat, lon} = coords;
+  console.log("Fetching map for", icao, lat, lon);
 
   try {
-    const res = await fetch(`/map?lat=${lat}&lon=${lon}&icao=${icao}`);
-    if(!res.ok) return null;
+    const res = await fetch(`https://metar-proxy.vercel.app/map?lat=${lat}&lon=${lon}&icao=${icao}`);
+    console.log("Map API status:", res.status);
+    if(!res.ok) { console.warn("Map API error:", res.status); return null; }
     const data = await res.json();
+    console.log("OSM elements:", data.elements ? data.elements.length : 0);
+    if(!data.elements || data.elements.length === 0) {
+      console.warn("No OSM elements returned for", icao);
+      return null;
+    }
     const svg = buildAirportSVG(data, lat);
-    mapCache[icao] = svg;
+    console.log("SVG built:", svg ? "yes" : "null");
+    if(svg) mapCache[icao] = svg;
     return svg;
   } catch(e) {
-    console.warn("Map error:", e);
+    console.warn("Map fetch error:", e);
     return null;
   }
 }
@@ -571,7 +580,7 @@ function renderPosterHTML(dayStr, monStr, dayName, year, m, d, timeStr) {
       </div>
     </div>
     <div class="poster-divider"></div>
-    <div id="airportMapBox" style="width:100%;height:28%;min-height:60px;display:flex;align-items:center;justify-content:center;margin-bottom:2%;overflow:hidden;">
+    <div id="airportMapBox" style="width:100%;height:160px;display:flex;align-items:center;justify-content:center;margin-bottom:2%;overflow:hidden;background:rgba(0,0,0,0.03);border-radius:4px;">
       <div style="color:#A0AEC0;font-size:9px;font-family:'Space Mono',monospace;letter-spacing:0.2em">LADE KARTE...</div>
     </div>
     <div class="poster-divider"></div>
