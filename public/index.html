@@ -560,7 +560,7 @@ function renderPosterHTML(dayStr, monStr, dayName, year, m, d, timeStr) {
       <div class="poster-icao">${state.icao}</div>
       <div class="poster-airport">${state.airportName.toUpperCase()}</div>
     </div>
-    <div style="margin-bottom:3%">
+    <div style="margin-bottom:2%">
       <div class="poster-dayname">${dayName}</div>
       <div class="poster-daterow">
         <span class="poster-day">${dayStr}</span>
@@ -571,11 +571,11 @@ function renderPosterHTML(dayStr, monStr, dayName, year, m, d, timeStr) {
       </div>
     </div>
     <div class="poster-divider"></div>
-    <div id="airportMapBox" style="width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;margin-bottom:3%;opacity:0.9;">
+    <div id="airportMapBox" style="width:100%;height:28%;min-height:60px;display:flex;align-items:center;justify-content:center;margin-bottom:2%;overflow:hidden;">
       <div style="color:#A0AEC0;font-size:9px;font-family:'Space Mono',monospace;letter-spacing:0.2em">LADE KARTE...</div>
     </div>
     <div class="poster-divider"></div>
-    <div style="flex:1;overflow:hidden">
+    <div style="flex:1;overflow:hidden;min-height:0">
       ${m ? `
         <div class="poster-metar-label">METAR · ${timeStr} UTC</div>
         <div class="poster-metar-raw">${m.raw}</div>
