@@ -246,6 +246,7 @@
 
 <script>
 const API = "https://metar-proxy.vercel.app/metar";
+let mapCache = {};
 
 // ICAO → {name, earliest}
 const KNOWN = {
@@ -548,7 +549,6 @@ const AIRPORT_COORDS = {
   KATL:{lat:33.6407,lon:-84.4277},KSFO:{lat:37.6213,lon:-122.379},
 };
 
-let mapCache = {}; // Cache: icao → SVG string
 
 async function fetchAirportMap(icao) {
   // Only use cache if it's a valid SVG (not null)
