@@ -401,7 +401,6 @@
 
     #poster {
         width: 100%;
-        aspect-ratio: 1/1.414;
         border-radius: 8px;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         display: flex;
@@ -410,7 +409,8 @@
         box-sizing: border-box;
         font-family: 'Space Mono', monospace;
         position: relative;
-        overflow: hidden
+        overflow: hidden;
+        min-height: 400px
     }
 
     .scanlines {
@@ -550,17 +550,17 @@
                 </div>
                 <div class="opt-label">FARBTHEMA</div>
                 <div class="opt-grid">
-                    <div class="opt sel" id="th-beige" onclick="setTheme('beige')">
-                        <span class="dot" style="background:#E8E4DC;border:1px solid #aaa"></span>
-                        Beige
+                    <div class="opt sel" id="th-light" onclick="setTheme('light')">
+                        <span class="dot" style="background:#F5F0E8"></span>
+                        Hell
                     </div>
-                    <div class="opt" id="th-white" onclick="setTheme('white')">
-                        <span class="dot" style="background:#FFFFFF;border:1px solid #aaa"></span>
-                        Weiß
-                    </div>
-                    <div class="opt" id="th-black" onclick="setTheme('black')">
+                    <div class="opt" id="th-dark" onclick="setTheme('dark')">
                         <span class="dot" style="background:#111111"></span>
-                        Schwarz
+                        Dunkel
+                    </div>
+                    <div class="opt" id="th-navy" onclick="setTheme('navy')">
+                        <span class="dot" style="background:#0a1628"></span>
+                        Navy
                     </div>
                 </div>
                 <div class="opt-label">GRÖSSE</div>
@@ -639,29 +639,29 @@
     const MAP_API = "https://metar-proxy.vercel.app/map";
 
     const THEMES = {
-        beige: {
-            bg: "#E8E4DC",
-            text: "#3D3A35",
-            muted: "#8C8880",
-            accent: "#3D3A35",
-            divider: "#C8C4BC",
-            map: "#3D3A35"
+        light: {
+            bg: "#F5F0E8",
+            text: "#0A0F1E",
+            muted: "#64748B",
+            accent: "#A06A10",
+            divider: "#E8E0D0",
+            map: "#0A0F1E"
         },
-        white: {
-            bg: "#FFFFFF",
-            text: "#1A1A1A",
-            muted: "#888888",
-            accent: "#1A1A1A",
-            divider: "#DDDDDD",
-            map: "#1A1A1A"
-        },
-        black: {
+        dark: {
             bg: "#111111",
-            text: "#EEEEEE",
-            muted: "#666666",
-            accent: "#EEEEEE",
+            text: "#ffffff",
+            muted: "#888888",
+            accent: "#E8A430",
             divider: "#333333",
-            map: "#EEEEEE"
+            map: "#ffffff"
+        },
+        navy: {
+            bg: "#0a1628",
+            text: "#c8a96e",
+            muted: "#4a6080",
+            accent: "#c8a96e",
+            divider: "#1e3050",
+            map: "#c8a96e"
         },
     };
 
@@ -1064,7 +1064,7 @@
         metars: [],
         selected: null
     };
-    let theme = "beige";
+    let theme = "light";
     let size = "A3";
     let mapCache = {};
 
@@ -1726,19 +1726,19 @@
 
     <!-- METAR raw string in a box -->
     <div style="background:rgba(128,128,128,0.12);border-radius:3px;padding:3% 4%;margin-bottom:5%">
-      <div style="font-size:clamp(7px,1.5vw,10px);color:${
+      <div style="font-size:clamp(7px,1.5vw,11px);color:${
 
 
 
 
 
-        T.text};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.5;${F}">
+        T.text};word-break:break-all;line-height:1.5;${F}">
         ${m ? m.raw : `<span style="color:${T.muted}">Uhrzeit wählen um METAR anzuzeigen</span>`}
       </div>
     </div>
 
     <!-- AIRPORT MAP: full width, low opacity -->
-    <div id="mapBox" style="width:100%;height:32%;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0.20;margin-bottom:4%">
+    <div id="mapBox" style="width:100%;flex:1;min-height:80px;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0.20;margin-bottom:5%">
       <div style="color:${
 
 
@@ -1747,48 +1747,23 @@
         T.muted};font-size:8px;${F};letter-spacing:0.15em">LADE KARTE...</div>
     </div>
 
-    <!-- BOTTOM INFO: justified two-column table like the design -->
-    ${
+    <!-- BOTTOM INFO block, centered, monospace -->
+    <div style="text-align:center;border-top:1px solid ${
 
 
-        (() => {const elevParts = (info.elev || "").split("(");const elevLeft = elevParts[0] ? elevParts[0].trim() : "—";const elevRight = elevParts[1] ? elevParts[1].replace(")", "").trim() + " MSL" : "";const rwyParts = (info.rwy || "").split("·");const rwyLeft = rwyParts[0] ? rwyParts[0].trim() : "—";const rwyRight = rwyParts[1] ? rwyParts[1].trim() : "";return `
-    <div style="border-top:1px solid ${T.divider};padding-top:4%">
-      <table style="width:100%;border-collapse:collapse;font-size:clamp(6px,1.2vw,9px);color:${T.text};line-height:2;${F}">
-        <tr>
-          <td style="text-align:left">${
-            state.name.toUpperCase()}</td>
-          <td style="text-align:right">AIRPORT</td>
-        </tr>
-        <tr>
-          <td colspan="2">IATA-Code: ${
-
-
-            info.iata || "—"}, ICAO-Code: ${state.icao}</td>
-        </tr>
-        <tr>
-          <td style="text-align:left">${
-
-            info.lat || "—"}</td>
-          <td style="text-align:right">${info.lon || "—"}</td>
-        </tr>
-        <tr>
-          <td style="text-align:left">${
-
-            elevLeft}</td>
-          <td style="text-align:right">${elevRight}</td>
-        </tr>
-        <tr>
-          <td style="text-align:left">${
-
-            rwyLeft}</td>
-          <td style="text-align:right">${rwyRight}</td>
-        </tr>
-      </table>
-      <div style="text-align:center;margin-top:4%;font-size:clamp(9px,1.8vw,13px);font-weight:700;color:${
-
-            T.text};letter-spacing:0.15em;font-family:Arial,sans-serif">WAIRWEBELONG</div>
-      <div style="text-align:left;margin-top:2%;font-size:clamp(5px,0.9vw,7px);color:${T.muted};${F}">IEM ASOS · OSM</div>
-    </div>`;})()}`;
+        T.divider};padding-top:4%">
+      <div style="font-size:clamp(6px,1.2vw,9px);color:${T.text};line-height:2;${F}">
+        ${state.name.toUpperCase().padEnd(20)} ${"AIRPORT"}<br>
+        IATA-Code: ${info.iata || "—"}, ICAO-Code: ${state.icao}<br>
+        ${info.lat || "—"} , ${info.lon || "—"}<br>
+        ${info.elev || "—"}<br>
+        ${info.rwy || "—"}
+      </div>
+      <div style="font-size:clamp(8px,1.6vw,11px);font-weight:700;color:${
+        T.text};letter-spacing:0.15em;margin-top:3%;${F}">WAIRWEBELONG</div>
+      <div style="font-size:clamp(5px,0.9vw,7px);color:${T.muted};margin-top:2%;${F}">IEM ASOS · OSM</div>
+    </div>`
+        ;
 
         if (m)
             $("posterNote").style.display = "block";
