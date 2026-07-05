@@ -76,7 +76,7 @@
         display: flex;
         gap: 32px;
         padding: 0 32px 48px;
-        max-width: 1060px;
+        max-width: 1100px;
         margin: 0 auto;
         align-items: flex-start;
         flex-wrap: wrap
@@ -112,7 +112,7 @@
         margin-bottom: 16px
     }
 
-    .step-num {
+    .snum {
         width: 28px;
         height: 28px;
         border-radius: 50%;
@@ -124,26 +124,26 @@
         font-weight: 700;
         color: #64748B;
         flex-shrink: 0;
-        transition: background 0.3s, color 0.3s
+        transition: all 0.3s
     }
 
-    .step-num.done {
+    .snum.done {
         background: #E8A430;
         color: #0A0F1E
     }
 
-    .card-title {
+    .ctitle {
         font-weight: 600;
         font-size: 15px
     }
 
-    .card-sub {
+    .csub {
         font-size: 12px;
         color: #64748B;
         margin-top: 2px
     }
 
-    .input-row {
+    .irow {
         display: flex;
         gap: 8px
     }
@@ -174,22 +174,22 @@
         color-scheme: dark
     }
 
-    .selects {
+    .drow {
         display: flex;
         gap: 8px;
         margin-bottom: 12px;
         flex-wrap: wrap
     }
 
-    .selects select:nth-child(1) {
+    .drow select:nth-child(1) {
         flex: 1 1 60px
     }
 
-    .selects select:nth-child(2) {
+    .drow select:nth-child(2) {
         flex: 2 1 110px
     }
 
-    .selects select:nth-child(3) {
+    .drow select:nth-child(3) {
         flex: 1 1 75px
     }
 
@@ -209,16 +209,16 @@
     .btn.on {
         background: #E8A430;
         color: #0A0F1E;
-        cursor: pointer
+        cursor:pointer
     }
 
     .btn.on:hover {
         background: #f0b040
     }
 
-    .btn.full {
+    .btn.w {
         width: 100%;
-        padding: 12px
+        padding:12px
     }
 
     .btn.buy {
@@ -227,32 +227,32 @@
         font-size: 15px
     }
 
-    .success {
+    .ok {
         margin-top: 12px;
         padding: 10px 14px;
         background: #166534;
         border-radius: 8px
     }
 
-    .success-title {
+    .ok-t {
         color: #4ADE80;
         font-weight: 600;
         font-size: 13px
     }
 
-    .success-sub {
+    .ok-s {
         color: #4ADE80;
         font-size: 12px;
         opacity: 0.8
     }
 
-    .error {
+    .err {
         color: #EF4444;
         font-size: 13px;
         margin-top: 10px
     }
 
-    .raw-box {
+    .rawbox {
         margin-top: 10px;
         padding: 10px 12px;
         background: #1E2A3A;
@@ -264,14 +264,14 @@
         line-height: 1.6
     }
 
-    .suggestions {
+    .sugg {
         margin-top: 8px;
         background: #1E2A3A;
         border-radius: 8px;
         overflow: hidden
     }
 
-    .suggestion {
+    .sugitem {
         padding: 10px 14px;
         cursor: pointer;
         font-size: 13px;
@@ -280,22 +280,22 @@
         gap: 12px
     }
 
-    .suggestion:hover {
+    .sugitem:hover {
         background: #111827
     }
 
-    .sug-icao {
+    .si-icao {
         font-family: 'Space Mono', monospace;
         color: #E8A430;
         min-width: 50px
     }
 
-    .sug-year {
+    .si-yr {
         color: #64748B;
         font-size: 11px
     }
 
-    .price-table div {
+    .ptab div {
         display: flex;
         justify-content: space-between;
         padding: 6px 0;
@@ -303,21 +303,22 @@
         font-size: 13px
     }
 
-    .price-table span:first-child {
-        color: #64748B
+    .ptab span:first-child {
+        color:#64748B
     }
 
-    .price-table {
+    .ptab {
         margin-bottom: 16px
     }
 
-    .opt-grid {
+    .og {
         display: flex;
         gap: 8px;
-        flex-wrap: wrap
+        flex-wrap: wrap;
+        margin-bottom: 6px
     }
 
-    .opt {
+    .ob {
         flex: 1 1 auto;
         padding: 8px 10px;
         border: 1px solid #2D3A4A;
@@ -332,19 +333,19 @@
         transition: all 0.2s
     }
 
-    .opt:hover {
+    .ob:hover {
         border-color: #E8A430;
-        color: #fff
+        color:#fff
     }
 
-    .opt.sel {
+    .ob.sel {
         background: #E8A430;
         color: #0A0F1E;
         border-color: #E8A430;
         font-weight: 700
     }
 
-    .opt-label {
+    .olabel {
         font-size: 11px;
         color: #64748B;
         letter-spacing: 0.15em;
@@ -358,18 +359,17 @@
         border-radius: 50%;
         display: inline-block;
         vertical-align: middle;
-        margin-right: 5px;
-        border: 1px solid rgba(255, 255, 255, 0.15)
+        margin-right: 5px
     }/* Poster */
 
-    .poster-col {
-        flex: 1 1 280px;
-        min-width: 240px;
-        max-width: 380px;
+    .pcol {
+        flex: 1 1 300px;
+        min-width: 260px;
+        max-width: 400px;
         margin: 0 auto
     }
 
-    .poster-label {
+    .plabel {
         font-size: 11px;
         letter-spacing: 0.2em;
         color: #64748B;
@@ -377,9 +377,9 @@
         text-align: center
     }
 
-    .poster-empty {
+    .pempty {
         width: 100%;
-        aspect-ratio: 2/3;
+        aspect-ratio: 1/1.414;
         background: #1E2A3A;
         border-radius: 8px;
         display: flex;
@@ -392,7 +392,7 @@
         font-size: 13px
     }
 
-    .poster-note {
+    .pnote {
         text-align: center;
         margin-top: 12px;
         font-size: 12px;
@@ -401,16 +401,15 @@
 
     #poster {
         width: 100%;
+        aspect-ratio: 1/1.414;
         border-radius: 8px;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        display: flex;
+        display: none;
         flex-direction: column;
-        padding: 6% 7%;
+        padding: 7% 8%;
         box-sizing: border-box;
-        font-family: 'Space Mono', monospace;
         position: relative;
-        overflow: hidden;
-        min-height: 400px
+        overflow: hidden
     }
 
     .scanlines {
@@ -432,25 +431,19 @@
 
         .main {
             padding: 0 16px 32px;
-            gap:20px
-        }
-
-        .tagline {
-            display: none
+            gap: 20px
         }
     }
     </style>
 </head>
 <body>
-
     <nav>
         <div class="logo">
             <span class="air">W·AIR·</span>
             <span class="rest">WEBELONG</span>
         </div>
-        <div class="tagline" style="font-size:12px;color:#64748B;letter-spacing:0.1em">DAS WETTER DEINER GEBURT</div>
+        <div style="font-size:12px;color:#64748B;letter-spacing:0.1em">DAS WETTER DEINER GEBURT</div>
     </nav>
-
     <div class="hero">
         <div class="hero-label">LIMITIERTES POSTER</div>
         <h1>
@@ -460,41 +453,38 @@
         </h1>
         <p>Wähle Flughafen, Datum und Uhrzeit — wir drucken das originale METAR als hochwertiges Poster.</p>
     </div>
-
     <div class="main">
         <div class="steps">
 
-            <!-- Step 1: Flughafen -->
             <div class="card active" id="card1">
                 <div class="card-header">
-                    <div class="step-num" id="sn1">1</div>
+                    <div class="snum" id="sn1">1</div>
                     <div>
-                        <div class="card-title">Flughafen wählen</div>
-                        <div class="card-sub">ICAO (EDDM), IATA (MUC) oder Name</div>
+                        <div class="ctitle">Flughafen wählen</div>
+                        <div class="csub">ICAO (EDDM), IATA (MUC) oder Name</div>
                     </div>
                 </div>
-                <div class="input-row">
+                <div class="irow">
                     <input type="text" id="icaoInput" placeholder="z.B. EDDM, MUC oder München" maxlength="20">
-                    <button class="btn on" onclick="handleSearch()">Suchen</button>
+                    <button class="btn on" onclick="doSearch()">Suchen</button>
                 </div>
-                <div id="suggestions" class="suggestions" style="display:none"></div>
-                <div id="airportError" class="error" style="display:none"></div>
-                <div id="airportSuccess" class="success" style="display:none">
-                    <div class="success-title" id="airportSuccessTitle"></div>
-                    <div class="success-sub" id="airportSuccessSub"></div>
+                <div id="sugg" class="sugg" style="display:none"></div>
+                <div id="aerr" class="err" style="display:none"></div>
+                <div id="aok" class="ok" style="display:none">
+                    <div class="ok-t" id="aok-t"></div>
+                    <div class="ok-s" id="aok-s"></div>
                 </div>
             </div>
 
-            <!-- Step 2: Datum -->
             <div class="card faded" id="card2">
                 <div class="card-header">
-                    <div class="step-num" id="sn2">2</div>
+                    <div class="snum" id="sn2">2</div>
                     <div>
-                        <div class="card-title">Datum wählen</div>
-                        <div class="card-sub" id="dateSub">Erst Flughafen wählen</div>
+                        <div class="ctitle">Datum wählen</div>
+                        <div class="csub" id="dsub">Erst Flughafen wählen</div>
                     </div>
                 </div>
-                <div class="selects">
+                <div class="drow">
                     <select id="selDay">
                         <option value="">Tag</option>
                     </select>
@@ -517,70 +507,68 @@
                         <option value="">Jahr</option>
                     </select>
                 </div>
-                <button class="btn full" id="loadBtn" onclick="handleDateSearch()">METARs laden →</button>
-                <div id="metarError" class="error" style="display:none"></div>
-                <div id="metarSuccess" class="success" style="display:none">
-                    <div class="success-title" id="metarSuccessTitle"></div>
+                <button class="btn w" id="loadBtn" onclick="doLoadMetars()">METARs laden →</button>
+                <div id="merr" class="err" style="display:none"></div>
+                <div id="mok" class="ok" style="display:none">
+                    <div class="ok-t" id="mok-t"></div>
                 </div>
             </div>
 
-            <!-- Step 3: Uhrzeit -->
             <div class="card faded" id="card3">
                 <div class="card-header">
-                    <div class="step-num" id="sn3">3</div>
+                    <div class="snum" id="sn3">3</div>
                     <div>
-                        <div class="card-title">Uhrzeit wählen</div>
-                        <div class="card-sub" id="timeSub">Erst Datum laden</div>
+                        <div class="ctitle">Uhrzeit wählen</div>
+                        <div class="csub" id="tsub">Erst Datum laden</div>
                     </div>
                 </div>
-                <select id="selTime" style="width:100%" onchange="handleTimeSelect()">
+                <select id="selTime" style="width:100%" onchange="doTimeSelect()">
                     <option value="">Uhrzeit wählen (UTC)</option>
                 </select>
-                <div id="selectedRaw" class="raw-box" style="display:none"></div>
+                <div id="rawbox" class="rawbox" style="display:none"></div>
             </div>
 
-            <!-- Step 4: Design -->
             <div class="card faded" id="card4">
                 <div class="card-header">
-                    <div class="step-num" id="sn4">4</div>
+                    <div class="snum" id="sn4">4</div>
                     <div>
-                        <div class="card-title">Design wählen</div>
-                        <div class="card-sub">Farbe & Größe</div>
+                        <div class="ctitle">Design wählen</div>
+                        <div class="csub">Farbe & Größe</div>
                     </div>
                 </div>
-                <div class="opt-label">FARBTHEMA</div>
-                <div class="opt-grid">
-                    <div class="opt sel" id="th-light" onclick="setTheme('light')">
-                        <span class="dot" style="background:#F5F0E8"></span>
-                        Hell
+                <div class="olabel">FARBTHEMA</div>
+                <div class="og">
+                    <div class="ob sel" id="th-beige" onclick="doTheme('beige')">
+                        <span class="dot" style="background:#E8E4DC;border:1px solid #aaa"></span>
+                        Beige
                     </div>
-                    <div class="opt" id="th-dark" onclick="setTheme('dark')">
-                        <span class="dot" style="background:#111111"></span>
-                        Dunkel
+                    <div class="ob" id="th-white" onclick="doTheme('white')">
+                        <span class="dot" style="background:#FFF;border:1px solid #ccc"></span>
+                        Weiß
                     </div>
-                    <div class="opt" id="th-navy" onclick="setTheme('navy')">
-                        <span class="dot" style="background:#0a1628"></span>
-                        Navy
+                    <div class="ob" id="th-black" onclick="doTheme('black')">
+                        <span class="dot" style="background:#111"></span>
+                        Schwarz
                     </div>
                 </div>
-                <div class="opt-label">GRÖSSE</div>
-                <div class="opt-grid">
-                    <div class="opt" id="sz-A4" onclick="setSize('A4')">
+                <div class="olabel">GRÖSSE</div>
+                <div class="og">
+                    <div class="ob" id="sz-A4" onclick="doSize('A4')">
                         A4
                         <br>
                         <small style="opacity:0.6">21×30</small>
                     </div>
-                    <div class="opt sel" id="sz-A3" onclick="setSize('A3')">
+                    <div class="ob sel" id="sz-A3" onclick="doSize('A3')">
                         A3
                         <br>
                         <small style="opacity:0.6">30×42</small>
                     </div>
-                    <div class="opt" id="sz-A2" onclick="setSize('A2')">
+                    <div class="ob" id="sz-A2" onclick="doSize('A2')">
                         A2
                         <br>
                         <small style="opacity:0.6">42×59</small>
                     </div>
-                    <div class="opt" id="sz-A1" onclick="setSize('A1')">
+                    <div class="ob" id="sz-A1" onclick="doSize('A1')">
                         A1
                         <br>
                         <small style="opacity:0.6">59×84</small>
@@ -588,19 +576,18 @@
                 </div>
             </div>
 
-            <!-- Step 5: Bestellen -->
             <div class="card faded" id="card5">
                 <div class="card-header">
-                    <div class="step-num" id="sn5">5</div>
+                    <div class="snum" id="sn5">5</div>
                     <div>
-                        <div class="card-title">Poster bestellen</div>
-                        <div class="card-sub">230g Kunstdruckpapier</div>
+                        <div class="ctitle">Poster bestellen</div>
+                        <div class="csub">230g Kunstdruckpapier</div>
                     </div>
                 </div>
-                <div class="price-table">
+                <div class="ptab">
                     <div>
                         <span>Format</span>
-                        <span id="priceFormat">A3 · 30×42 cm</span>
+                        <span id="pFormat">A3 · 30×42 cm</span>
                     </div>
                     <div>
                         <span>Material</span>
@@ -612,59 +599,54 @@
                     </div>
                     <div>
                         <span>Preis</span>
-                        <span id="priceVal">CHF 39.–</span>
+                        <span id="pPrice">CHF 39.–</span>
                     </div>
                 </div>
-                <button class="btn buy" id="buyBtn">In den Warenkorb →</button>
+                <button class="btn buy" id="buyBtn" onclick="doAddToCart()">In den Warenkorb →</button>
             </div>
 
         </div>
 
-        <!-- Poster Vorschau -->
-        <div class="poster-col">
-            <div class="poster-label">POSTER-VORSCHAU</div>
-            <div class="poster-empty" id="posterEmpty">
+        <div class="pcol">
+            <div class="plabel">POSTER-VORSCHAU (A4)</div>
+            <div class="pempty" id="pempty">
                 <div style="font-size:40px;opacity:0.2">✈</div>
                 <div>Poster-Vorschau</div>
                 <div style="font-size:11px;opacity:0.5">Flughafen & Datum wählen</div>
             </div>
-            <div id="poster" style="display:none"></div>
-            <div class="poster-note" id="posterNote" style="display:none">Finales Poster: A2 · 300 DPI</div>
+            <div id="poster"></div>
+            <div class="pnote" id="pnote" style="display:none">Finales Poster in Druckqualität · 300 DPI</div>
         </div>
     </div>
 
     <script>
-    // ── Konstanten ──────────────────────────────────────────────────────────────
     const API = "https://metar-proxy.vercel.app/metar";
     const MAP_API = "https://metar-proxy.vercel.app/map";
 
+    // ── Data ─────────────────────────────────────────────────────────────────────
     const THEMES = {
-        light: {
-            bg: "#F5F0E8",
-            text: "#0A0F1E",
-            muted: "#64748B",
-            accent: "#A06A10",
-            divider: "#E8E0D0",
-            map: "#0A0F1E"
+        beige: {
+            bg: "#E8E4DC",
+            text: "#3D3A35",
+            muted: "#8C8880",
+            divider: "#C8C4BC",
+            map: "#3D3A35"
         },
-        dark: {
-            bg: "#111111",
-            text: "#ffffff",
+        white: {
+            bg: "#FFFFFF",
+            text: "#1A1A1A",
             muted: "#888888",
-            accent: "#E8A430",
-            divider: "#333333",
-            map: "#ffffff"
+            divider: "#DDDDDD",
+            map: "#1A1A1A"
         },
-        navy: {
-            bg: "#0a1628",
-            text: "#c8a96e",
-            muted: "#4a6080",
-            accent: "#c8a96e",
-            divider: "#1e3050",
-            map: "#c8a96e"
+        black: {
+            bg: "#111111",
+            text: "#EEEEEE",
+            muted: "#666666",
+            divider: "#333333",
+            map: "#EEEEEE"
         },
     };
-
     const SIZES = {
         A4: {
             label: "A4 · 21×30 cm",
@@ -683,7 +665,6 @@
             price: "CHF 89.–"
         },
     };
-
     const KNOWN = {
         EDDS: {
             name: "Stuttgart Airport",
@@ -834,7 +815,7 @@
             earliest: 1973
         },
         KORD: {
-            name: "Chicago O'Hare",
+            name: "Chicago O\'Hare",
             earliest: 1973
         },
         KATL: {
@@ -846,7 +827,6 @@
             earliest: 1973
         },
     };
-
     const IATA = {
         STR: "EDDS",
         MUC: "EDDM",
@@ -889,7 +869,6 @@
         ATL: "KATL",
         SFO: "KSFO",
     };
-
     const COORDS = {
         EDDS: {
             lat: 48.69,
@@ -1052,94 +1031,432 @@
             lon: -122.379
         },
     };
+    const AINFO = {
+        EDDS: {
+            iata: "STR",
+            lat: "48° 41′ 24″ N",
+            lon: "9° 13′ 19″ O",
+            elev: "389 m",
+            elevFt: "1.276 ft MSL",
+            rwy: "07/25",
+            rwyd: "3345 m × 45 m"
+        },
+        EDDM: {
+            iata: "MUC",
+            lat: "48° 21′ 14″ N",
+            lon: "11° 47′ 10″ O",
+            elev: "453 m",
+            elevFt: "1.487 ft MSL",
+            rwy: "08L/26R",
+            rwyd: "4000 m × 60 m"
+        },
+        EDDF: {
+            iata: "FRA",
+            lat: "50° 2′ 0″ N",
+            lon: "8° 34′ 14″ O",
+            elev: "111 m",
+            elevFt: "364 ft MSL",
+            rwy: "07L/25R",
+            rwyd: "4000 m × 60 m"
+        },
+        EDDL: {
+            iata: "DUS",
+            lat: "51° 17′ 22″ N",
+            lon: "6° 46′ 4″ O",
+            elev: "45 m",
+            elevFt: "147 ft MSL",
+            rwy: "05L/23R",
+            rwyd: "3000 m × 45 m"
+        },
+        EDDB: {
+            iata: "BER",
+            lat: "52° 21′ 58″ N",
+            lon: "13° 30′ 11″ O",
+            elev: "37 m",
+            elevFt: "122 ft MSL",
+            rwy: "07L/25R",
+            rwyd: "4000 m × 60 m"
+        },
+        EDDT: {
+            iata: "TXL",
+            lat: "52° 33′ 35″ N",
+            lon: "13° 17′ 15″ O",
+            elev: "37 m",
+            elevFt: "121 ft MSL",
+            rwy: "08L/26R",
+            rwyd: "3023 m × 60 m"
+        },
+        EDDH: {
+            iata: "HAM",
+            lat: "53° 37′ 49″ N",
+            lon: "9° 59′ 17″ O",
+            elev: "17 m",
+            elevFt: "53 ft MSL",
+            rwy: "05/23",
+            rwyd: "3666 m × 45 m"
+        },
+        EDDC: {
+            iata: "DRS",
+            lat: "51° 7′ 58″ N",
+            lon: "13° 46′ 1″ O",
+            elev: "230 m",
+            elevFt: "755 ft MSL",
+            rwy: "04/22",
+            rwyd: "2850 m × 45 m"
+        },
+        EDDP: {
+            iata: "LEJ",
+            lat: "51° 25′ 19″ N",
+            lon: "12° 14′ 24″ O",
+            elev: "131 m",
+            elevFt: "422 ft MSL",
+            rwy: "08R/26L",
+            rwyd: "3600 m × 45 m"
+        },
+        EDDN: {
+            iata: "NUE",
+            lat: "49° 29′ 55″ N",
+            lon: "11° 4′ 0″ O",
+            elev: "318 m",
+            elevFt: "1046 ft MSL",
+            rwy: "10/28",
+            rwyd: "2700 m × 45 m"
+        },
+        EDDK: {
+            iata: "CGN",
+            lat: "50° 51′ 57″ N",
+            lon: "7° 8′ 33″ O",
+            elev: "92 m",
+            elevFt: "301 ft MSL",
+            rwy: "14L/32R",
+            rwyd: "3815 m × 45 m"
+        },
+        EDDV: {
+            iata: "HAJ",
+            lat: "52° 27′ 40″ N",
+            lon: "9° 41′ 6″ O",
+            elev: "55 m",
+            elevFt: "180 ft MSL",
+            rwy: "09L/27R",
+            rwyd: "3800 m × 45 m"
+        },
+        EDDW: {
+            iata: "BRE",
+            lat: "53° 2′ 49″ N",
+            lon: "8° 47′ 8″ O",
+            elev: "4 m",
+            elevFt: "14 ft MSL",
+            rwy: "09/27",
+            rwyd: "2041 m × 45 m"
+        },
+        EDJA: {
+            iata: "FMM",
+            lat: "47° 59′ 20″ N",
+            lon: "10° 14′ 21″ O",
+            elev: "633 m",
+            elevFt: "2077 ft MSL",
+            rwy: "06/24",
+            rwyd: "2498 m × 45 m"
+        },
+        EDNY: {
+            iata: "FDH",
+            lat: "47° 40′ 17″ N",
+            lon: "9° 30′ 41″ O",
+            elev: "444 m",
+            elevFt: "1457 ft MSL",
+            rwy: "06/24",
+            rwyd: "2490 m × 45 m"
+        },
+        LOWW: {
+            iata: "VIE",
+            lat: "48° 6′ 37″ N",
+            lon: "16° 34′ 10″ O",
+            elev: "183 m",
+            elevFt: "600 ft MSL",
+            rwy: "11/29",
+            rwyd: "3600 m × 45 m"
+        },
+        LOWI: {
+            iata: "INN",
+            lat: "47° 15′ 36″ N",
+            lon: "11° 20′ 38″ O",
+            elev: "581 m",
+            elevFt: "1907 ft MSL",
+            rwy: "08/26",
+            rwyd: "2000 m × 45 m"
+        },
+        LOWS: {
+            iata: "SZG",
+            lat: "47° 47′ 36″ N",
+            lon: "13° 0′ 15″ O",
+            elev: "430 m",
+            elevFt: "1411 ft MSL",
+            rwy: "16/34",
+            rwyd: "2990 m × 45 m"
+        },
+        LOWG: {
+            iata: "GRZ",
+            lat: "46° 59′ 28″ N",
+            lon: "15° 26′ 23″ O",
+            elev: "340 m",
+            elevFt: "1115 ft MSL",
+            rwy: "16C/34C",
+            rwyd: "3000 m × 45 m"
+        },
+        LSZH: {
+            iata: "ZRH",
+            lat: "47° 27′ 53″ N",
+            lon: "8° 32′ 55″ O",
+            elev: "432 m",
+            elevFt: "1416 ft MSL",
+            rwy: "14/32",
+            rwyd: "3700 m × 60 m"
+        },
+        LSGG: {
+            iata: "GVA",
+            lat: "46° 14′ 17″ N",
+            lon: "6° 6′ 32″ O",
+            elev: "427 m",
+            elevFt: "1411 ft MSL",
+            rwy: "04/22",
+            rwyd: "3900 m × 60 m"
+        },
+        LFSB: {
+            iata: "BSL",
+            lat: "47° 35′ 25″ N",
+            lon: "7° 31′ 47″ O",
+            elev: "273 m",
+            elevFt: "896 ft MSL",
+            rwy: "15/33",
+            rwyd: "3900 m × 60 m"
+        },
+        EGLL: {
+            iata: "LHR",
+            lat: "51° 28′ 39″ N",
+            lon: "0° 27′ 41″ W",
+            elev: "25 m",
+            elevFt: "83 ft MSL",
+            rwy: "09L/27R",
+            rwyd: "3902 m × 50 m"
+        },
+        EGKK: {
+            iata: "LGW",
+            lat: "51° 9′ 8″ N",
+            lon: "0° 11′ 25″ W",
+            elev: "62 m",
+            elevFt: "202 ft MSL",
+            rwy: "08R/26L",
+            rwyd: "3316 m × 45 m"
+        },
+        EGCC: {
+            iata: "MAN",
+            lat: "53° 21′ 13″ N",
+            lon: "2° 16′ 30″ W",
+            elev: "75 m",
+            elevFt: "256 ft MSL",
+            rwy: "05L/23R",
+            rwyd: "3048 m × 46 m"
+        },
+        LFPG: {
+            iata: "CDG",
+            lat: "49° 0′ 35″ N",
+            lon: "2° 32′ 52″ O",
+            elev: "119 m",
+            elevFt: "392 ft MSL",
+            rwy: "09L/27R",
+            rwyd: "4200 m × 45 m"
+        },
+        LFPO: {
+            iata: "ORY",
+            lat: "48° 43′ 24″ N",
+            lon: "2° 22′ 46″ O",
+            elev: "89 m",
+            elevFt: "291 ft MSL",
+            rwy: "08/26",
+            rwyd: "3650 m × 45 m"
+        },
+        EHAM: {
+            iata: "AMS",
+            lat: "52° 18′ 29″ N",
+            lon: "4° 45′ 51″ O",
+            elev: "-3 m",
+            elevFt: "-11 ft MSL",
+            rwy: "09/27",
+            rwyd: "3800 m × 45 m"
+        },
+        LEMD: {
+            iata: "MAD",
+            lat: "40° 29′ 37″ N",
+            lon: "3° 34′ 4″ W",
+            elev: "610 m",
+            elevFt: "2001 ft MSL",
+            rwy: "14L/32R",
+            rwyd: "4100 m × 60 m"
+        },
+        LEBL: {
+            iata: "BCN",
+            lat: "41° 17′ 49″ N",
+            lon: "2° 4′ 59″ O",
+            elev: "4 m",
+            elevFt: "13 ft MSL",
+            rwy: "07L/25R",
+            rwyd: "3743 m × 60 m"
+        },
+        LIRF: {
+            iata: "FCO",
+            lat: "41° 48′ 1″ N",
+            lon: "12° 14′ 21″ O",
+            elev: "14 m",
+            elevFt: "45 ft MSL",
+            rwy: "07/25",
+            rwyd: "3902 m × 60 m"
+        },
+        LIMC: {
+            iata: "MXP",
+            lat: "45° 37′ 50″ N",
+            lon: "8° 43′ 22″ O",
+            elev: "234 m",
+            elevFt: "768 ft MSL",
+            rwy: "17L/35R",
+            rwyd: "3920 m × 60 m"
+        },
+        KJFK: {
+            iata: "JFK",
+            lat: "40° 38′ 23″ N",
+            lon: "73° 46′ 44″ W",
+            elev: "4 m",
+            elevFt: "13 ft MSL",
+            rwy: "04L/22R",
+            rwyd: "2560 m × 46 m"
+        },
+        KLAX: {
+            iata: "LAX",
+            lat: "33° 56′ 33″ N",
+            lon: "118° 24′ 29″ W",
+            elev: "38 m",
+            elevFt: "125 ft MSL",
+            rwy: "06L/24R",
+            rwyd: "3685 m × 46 m"
+        },
+        KORD: {
+            iata: "ORD",
+            lat: "41° 58′ 37″ N",
+            lon: "87° 54′ 26″ W",
+            elev: "204 m",
+            elevFt: "672 ft MSL",
+            rwy: "10L/28R",
+            rwyd: "3962 m × 46 m"
+        },
+        KATL: {
+            iata: "ATL",
+            lat: "33° 38′ 12″ N",
+            lon: "84° 25′ 40″ W",
+            elev: "313 m",
+            elevFt: "1026 ft MSL",
+            rwy: "08L/26R",
+            rwyd: "3624 m × 46 m"
+        },
+        KSFO: {
+            iata: "SFO",
+            lat: "37° 37′ 8″ N",
+            lon: "122° 22′ 31″ W",
+            elev: "4 m",
+            elevFt: "13 ft MSL",
+            rwy: "01L/19R",
+            rwyd: "2652 m × 46 m"
+        },
+    };
+    const DAYS = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+    const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
-    const DAY_NAMES = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
-    const MON_NAMES = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-
-    // ── State ───────────────────────────────────────────────────────────────────
-    let state = {
+    // ── State ─────────────────────────────────────────────────────────────────────
+    let S = {
         icao: "",
         name: "",
         earliest: 1973,
         metars: [],
-        selected: null
+        sel: null
     };
-    let theme = "light";
-    let size = "A3";
+    let curTheme = "beige";
+    let curSize = "A3";
     let mapCache = {};
 
-    // ── Helpers ──────────────────────────────────────────────────────────────────
-    const $ = id => document.getElementById(id);
+    // ── Helpers ───────────────────────────────────────────────────────────────────
+    const G = id => document.getElementById(id);
 
     function setCard(n, active, faded) {
-        const el = $("card" + n);
+        var el = G("card" + n);
         if (!el)
             return;
         el.classList.toggle("active", active);
         el.classList.toggle("faded", faded);
     }
-    function setNum(n, done) {
-        const el = $("sn" + n);
+    function setSnum(n, done) {
+        var el = G("sn" + n);
         if (!el)
             return;
         el.classList.toggle("done", done);
-        el.textContent = done ? "✓" : n;
+        el.textContent = done ? "✓" : String(n);
     }
     function showErr(id, msg) {
-        const el = $(id);
+        var el = G(id);
         el.textContent = "⚠ " + msg;
         el.style.display = "block";
     }
+    function hideEl(id) {
+        G(id).style.display = "none";
+    }
 
     function buildDays(y, m) {
-        const sel = $("selDay"),
+        var sel = G("selDay"),
             prev = sel.value;
-        sel.innerHTML = '<option value="">Tag</option>';
-        const n = (y && m) ? new Date(+y, +m, 0).getDate() : 31;
-        for (let d = 1; d <= n; d++) {
-            const o = document.createElement("option");
+        sel.innerHTML = "<option value=''>Tag</option>";
+        var n = (y && m) ? new Date(+y, +m, 0).getDate() : 31;
+        for (var d = 1; d <= n; d++) {
+            var o = document.createElement("option");
             o.value = d;
             o.textContent = d;
             sel.appendChild(o);
         }
-        sel.value = prev;
+        if (prev)
+            sel.value = prev;
     }
     function buildYears(earliest) {
-        const sel = $("selYear"),
+        var sel = G("selYear"),
             cur = new Date().getFullYear();
-        sel.innerHTML = '<option value="">Jahr</option>';
-        for (let y = cur; y >= earliest; y--) {
-            const o = document.createElement("option");
+        sel.innerHTML = "<option value=''>Jahr</option>";
+        for (var y = cur; y >= earliest; y--) {
+            var o = document.createElement("option");
             o.value = y;
             o.textContent = y;
             sel.appendChild(o);
         }
     }
 
-    // ── Step 1: Airport ──────────────────────────────────────────────────────────
-    function selectAirport(code, name, earliest) {
-        state.icao = code;
-        state.name = name;
-        state.earliest = earliest;
-        state.metars = [];
-        state.selected = null;
-        $("airportError").style.display = "none";
-        $("suggestions").style.display = "none";
-        $("airportSuccessTitle").textContent = "✓ " + code + " — " + name;
-        $("airportSuccessSub").textContent = "Archiv verfügbar ab " + earliest;
-        $("airportSuccess").style.display = "block";
-        $("dateSub").textContent = "Verfügbar ab " + earliest;
-        $("selDay").value = "";
-        $("selMonth").value = "";
-        $("selYear").value = "";
-        $("selTime").innerHTML = '<option value="">Uhrzeit wählen (UTC)</option>';
-        $("selectedRaw").style.display = "none";
-        $("metarError").style.display = "none";
-        $("metarSuccess").style.display = "none";
-        setNum(1, true);
-        setNum(2, false);
-        setNum(3, false);
-        setNum(4, false);
+    // ── Step 1 ────────────────────────────────────────────────────────────────────
+    function pickAirport(code, name, earliest) {
+        S.icao = code;
+        S.name = name;
+        S.earliest = earliest;
+        S.metars = [];
+        S.sel = null;
+        hideEl("aerr");
+        hideEl("sugg");
+        G("aok-t").textContent = "✓ " + code + " — " + name;
+        G("aok-s").textContent = "Archiv verfügbar ab " + earliest;
+        G("aok").style.display = "block";
+        G("dsub").textContent = "Verfügbar ab " + earliest;
+        G("selDay").value = "";
+        G("selMonth").value = "";
+        G("selYear").value = "";
+        G("selTime").innerHTML = "<option value=''>Uhrzeit wählen (UTC)</option>";
+        G("rawbox").style.display = "none";
+        hideEl("merr");
+        hideEl("mok");
+        setSnum(1, true);
+        setSnum(2, false);
+        setSnum(3, false);
+        setSnum(4, false);
         setCard(1, false, false);
         setCard(2, true, false);
         setCard(3, false, true);
@@ -1147,188 +1464,205 @@
         setCard(5, false, true);
         buildYears(earliest);
         buildDays("", "");
-        renderPoster();
+        drawPoster();
     }
 
-    function handleSearch() {
-        let code = $("icaoInput").value.trim().toUpperCase();
-        $("airportError").style.display = "none";
-        $("suggestions").style.display = "none";
-        if (code.length < 2) {
-            showErr("airportError", "Mindestens 2 Zeichen eingeben");
+    function doSearch() {
+        var raw = G("icaoInput").value.trim().toUpperCase();
+        hideEl("aerr");
+        hideEl("sugg");
+        if (raw.length < 2) {
+            showErr("aerr", "Mindestens 2 Zeichen eingeben");
             return;
         }
-        // IATA → ICAO
+        var code = raw;
         if (code.length === 3 && IATA[code])
             code = IATA[code];
-        // Exact match
         if (KNOWN[code]) {
-            selectAirport(code, KNOWN[code].name, KNOWN[code].earliest);
+            pickAirport(code, KNOWN[code].name, KNOWN[code].earliest);
             return;
         }
-        // Partial match
-        const hits = Object.entries(KNOWN).filter(([k, v]) =>
-        k.startsWith(code) || v.name.toLowerCase().includes(code.toLowerCase())
-        );
+        var hits = Object.keys(KNOWN).filter(function(k) {
+            return k.indexOf(code) === 0 || KNOWN[k].name.toLowerCase().indexOf(raw.toLowerCase()) >= 0;
+        });
         if (hits.length === 1) {
-            selectAirport(hits[0][0], hits[0][1].name, hits[0][1].earliest);
+            pickAirport(hits[0], KNOWN[hits[0]].name, KNOWN[hits[0]].earliest);
             return;
         }
         if (hits.length > 1) {
-            const box = $("suggestions");
+            var box = G("sugg");
             box.innerHTML = "";
-            hits.forEach(([k, v]) => {
-                const d = document.createElement("div");
-                d.className = "suggestion";
-                d.innerHTML = `<span class="sug-icao">${k}</span><span style="flex:1">${v.name}</span><span class="sug-year">ab ${v.earliest}</span>`;
-                d.onclick = () => selectAirport(k, v.name, v.earliest);
+            hits.forEach(function(k) {
+                var d = document.createElement("div");
+                d.className = "sugitem";
+                d.innerHTML = '<span class="si-icao">' + k + '</span><span style="flex:1">' + KNOWN[k].name + '</span><span class="si-yr">ab ' + KNOWN[k].earliest + '</span>';
+                d.onclick = function() {
+                    pickAirport(k, KNOWN[k].name, KNOWN[k].earliest);
+                };
                 box.appendChild(d);
             });
             box.style.display = "block";
             return;
         }
-        showErr("airportError", `"${code}" nicht gefunden. Versuche z.B. EDDM, MUC oder München`);
+        showErr("aerr", '"' + raw + '" nicht gefunden. Versuche z.B. EDDM, MUC oder München');
     }
 
-    // ── Step 2: Date ─────────────────────────────────────────────────────────────
-    async function handleDateSearch() {
-        const day = $("selDay").value,
-            month = $("selMonth").value,
-            year = $("selYear").value;
+    // ── Step 2 ────────────────────────────────────────────────────────────────────
+    function doLoadMetars() {
+        var day = G("selDay").value,
+            month = G("selMonth").value,
+            year = G("selYear").value;
         if (!day || !month || !year) {
-            showErr("metarError", "Bitte Tag, Monat und Jahr wählen");
+            showErr("merr", "Bitte Tag, Monat und Jahr wählen");
             return;
         }
-        const btn = $("loadBtn");
+        var btn = G("loadBtn");
         btn.textContent = "⏳ Lade METARs...";
         btn.classList.remove("on");
-        $("metarError").style.display = "none";
-        $("metarSuccess").style.display = "none";
-        try {
-            const res = await fetch(`${API}?icao=${state.icao}&year=${year}&month=${month}&day=${day}`);
-            if (!res.ok)
-                throw new Error("Server Fehler: HTTP " + res.status);
-            const data = await res.json();
+        hideEl("merr");
+        hideEl("mok");
+        fetch(API + "?icao=" + S.icao + "&year=" + year + "&month=" + month + "&day=" + day)
+        .then(function(r) {
+            if (!r.ok)
+                throw new Error("HTTP " + r.status);
+            return r.json();
+        })
+        .then(function(data) {
             if (data.error)
                 throw new Error(data.error);
             if (!data.metars || !data.metars.length)
-                throw new Error("Keine Daten für dieses Datum.");
-            state.metars = data.metars;
-            state.selected = null;
-            $("metarSuccessTitle").textContent = "✓ " + data.metars.length + " Beobachtungen geladen";
-            $("metarSuccess").style.display = "block";
-            // Fill time dropdown
-            const sel = $("selTime");
-            sel.innerHTML = '<option value="">Uhrzeit wählen (UTC)</option>';
-            const times = [...new Set(data.metars.map(m => {
-                const x = (m.time || "").match(/(\d{2}):(\d{2})/);
-                return x ? x[1] + ":" + x[2] : null;
-            }).filter(Boolean))].sort();
-            times.forEach(t => {
-                const o = document.createElement("option");
-                o.value = t;
-                o.textContent = t + " UTC";
-                sel.appendChild(o);
+                throw new Error("Keine METAR-Daten für dieses Datum. Mögliche Gründe: Der Flughafen hatte zu diesem Zeitpunkt noch keine automatische Wetterstation, oder die Daten wurden nicht archiviert. Versuche ein späteres Datum.");
+            S.metars = data.metars;
+            S.sel = null;
+            G("mok-t").textContent = "✓ " + data.metars.length + " Beobachtungen geladen";
+            G("mok").style.display = "block";
+            var sel = G("selTime");
+            sel.innerHTML = "<option value=''>Uhrzeit wählen (UTC)</option>";
+            var seen = {};
+            data.metars.forEach(function(m) {
+                var x = (m.time || "").match(/(\d{2}):(\d{2})/);
+                if (x && !seen[x[0]]) {
+                    seen[x[0]] = 1;
+                    var o = document.createElement("option");
+                    o.value = x[1] + ":" + x[2];
+                    o.textContent = x[1] + ":" + x[2] + " UTC";
+                    sel.appendChild(o);
+                }
             });
-            $("timeSub").textContent = data.metars.length + " Beobachtungen · ~30 Min. Takt (UTC)";
-            setNum(2, true);
+            G("tsub").textContent = data.metars.length + " Beobachtungen · ~30 Min. Takt (UTC)";
+            setSnum(2, true);
             setCard(2, false, false);
             setCard(3, true, false);
             setCard(4, false, true);
             setCard(5, false, true);
-            renderPoster();
-        } catch (e) {
-            showErr("metarError", e.message);
-        }
-        btn.textContent = "METARs laden →";
-        btn.classList.add("on");
+            drawPoster();
+        })
+        .catch(function(e) {
+            showErr("merr", e.message);
+        })
+        .finally(function() {
+            btn.textContent = "METARs laden →";
+            btn.classList.add("on");
+        });
     }
 
-    // ── Step 3: Time ─────────────────────────────────────────────────────────────
-    function handleTimeSelect() {
-        const t = $("selTime").value;
+    // ── Step 3 ────────────────────────────────────────────────────────────────────
+    function doTimeSelect() {
+        var t = G("selTime").value;
         if (!t)
             return;
-        const [hh, mm] = t.split(":").map(Number),
+        var hh = +t.split(":")[0],
+            mm = +t.split(":")[1],
             target = hh * 60 + mm;
-        let best = null,
-            bestDiff = Infinity;
-        for (const m of state.metars) {
-            const x = (m.time || "").match(/(\d{2}):(\d{2})/);
+        var best = null,
+            bestDiff = 9999;
+        S.metars.forEach(function(m) {
+            var x = (m.time || "").match(/(\d{2}):(\d{2})/);
             if (!x)
-                continue;
-            const diff = Math.abs(+x[1] * 60 + +x[2] - target);
+                return;
+            var diff = Math.abs(+x[1] * 60 + +x[2] - target);
             if (diff < bestDiff) {
                 bestDiff = diff;
                 best = m;
             }
-        }
-        state.selected = best;
+        });
+        S.sel = best;
         if (best) {
-            $("selectedRaw").textContent = best.raw;
-            $("selectedRaw").style.display = "block";
-            setNum(3, true);
+            G("rawbox").textContent = best.raw;
+            G("rawbox").style.display = "block";
+            setSnum(3, true);
             setCard(3, false, false);
             setCard(4, true, false);
             setCard(5, true, false);
-            $("buyBtn").classList.add("on");
+            G("buyBtn").classList.add("on");
         }
-        renderPoster();
+        drawPoster();
     }
 
-    // ── Step 4: Design ────────────────────────────────────────────────────────────
-    function setTheme(t) {
-        theme = t;
+    // ── Step 4 ────────────────────────────────────────────────────────────────────
+    function doTheme(t) {
+        curTheme = t;
         mapCache = {};
-        document.querySelectorAll('[id^="th-"]').forEach(el => el.classList.remove("sel"));
-        $("th-" + t).classList.add("sel");
-        renderPoster();
+        document.querySelectorAll('[id^="th-"]').forEach(function(el) {
+            el.classList.remove("sel");
+        });
+        G("th-" + t).classList.add("sel");
+        drawPoster();
     }
-    function setSize(s) {
-        size = s;
-        document.querySelectorAll('[id^="sz-"]').forEach(el => el.classList.remove("sel"));
-        $("sz-" + s).classList.add("sel");
-        const info = SIZES[s];
-        if ($("priceFormat"))
-            $("priceFormat").textContent = info.label;
-        if ($("priceVal"))
-            $("priceVal").textContent = info.price;
+    function doSize(s) {
+        curSize = s;
+        document.querySelectorAll('[id^="sz-"]').forEach(function(el) {
+            el.classList.remove("sel");
+        });
+        G("sz-" + s).classList.add("sel");
+        G("pFormat").textContent = SIZES[s].label;
+        G("pPrice").textContent = SIZES[s].price;
     }
 
-    // ── METAR Decoder ─────────────────────────────────────────────────────────────
+    // ── METAR decode ──────────────────────────────────────────────────────────────
     function decode(raw) {
         if (!raw)
-            return {};
-        const wind = raw.match(/(\d{3}|VRB)(\d{2,3})(G(\d{2,3}))?KT/);
-        const vis = raw.match(/\s(\d{4})\s/);
-        const temp = raw.match(/\s(M?\d{2})\/(M?\d{2})\s/);
-        const qnh = raw.match(/[AQ](\d{4})/);
-        const clouds = raw.match(/(FEW|SCT|BKN|OVC)\d{3}/g);
+            return {
+                wind: "—",
+                vis: "—",
+                temp: "—",
+                qnh: "—",
+                clouds: "—"
+            };
+        var wind = raw.match(/(\d{3}|VRB)(\d{2,3})(G(\d{2,3}))?KT/);
+        var vis = raw.match(/\s(\d{4})\s/);
+        var temp = raw.match(/\s(M?\d{2})\/(M?\d{2})\s/);
+        var qnh = raw.match(/[AQ](\d{4})/);
+        var clouds = raw.match(/(FEW|SCT|BKN|OVC)\d{3}/g);
         return {
-            wind: wind ? `${wind[1]}° ${wind[2]}kt${wind[4] ? " G" + wind[4] + "kt" : ""}` : "—",
-            vis: vis ? `${parseInt(vis[1])}m` : (raw.includes("CAVOK") ? "CAVOK" : "—"),
-            temp: temp ? `${temp[1].replace("M", "-")}°C / ${temp[2].replace("M", "-")}°C` : "—",
-            qnh: qnh ? `${qnh[1]} ${raw.includes("Q") ? "hPa" : "inHg"}` : "—",
-            clouds: clouds ? clouds.join(" ") : (raw.includes("CAVOK") ? "CAVOK" : "—"),
+            wind: wind ? wind[1] + "° " + wind[2] + "kt" + (wind[4] ? " G" + wind[4] + "kt" : "") : "—",
+            vis: vis ? parseInt(vis[1]) + "m" : (raw.indexOf("CAVOK") >= 0 ? "CAVOK" : "—"),
+            temp: temp ? temp[1].replace("M", "-") + "°C / " + temp[2].replace("M", "-") + "°C" : "—",
+            qnh: qnh ? qnh[1] + (raw.indexOf("Q") >= 0 ? " hPa" : " inHg") : "—",
+            clouds: clouds ? clouds.join(" ") : (raw.indexOf("CAVOK") >= 0 ? "CAVOK" : "—"),
         };
     }
 
     // ── Airport Map ───────────────────────────────────────────────────────────────
     function buildSVG(data, centerLat, color) {
-        const scale = Math.cos(centerLat * Math.PI / 180);
-        const layers = {
+        var sc = Math.cos(centerLat * Math.PI / 180);
+        var layers = {
             runway: [],
             taxiway: [],
             apron: [],
             terminal: []
         };
-        for (const el of (data.elements || [])) {
+        var els = data.elements || [];
+        for (var i = 0; i < els.length; i++) {
+            var el = els[i];
             if (el.type !== "way" || !el.geometry)
                 continue;
-            const coords = el.geometry.map(g => [g.lon * scale * 111320, g.lat * 111320]);
+            var coords = el.geometry.map(function(g) {
+                return [g.lon * sc * 111320, g.lat * 111320];
+            });
             if (coords.length < 2)
                 continue;
-            const a = (el.tags || {}).aeroway || "";
+            var a = (el.tags || {}).aeroway || "";
             if (a === "runway")
                 layers.runway.push(coords);
             else if (a === "taxiway")
@@ -1338,170 +1672,220 @@
             else if (a === "terminal" || a === "hangar")
                 layers.terminal.push(coords);
         }
-        let xs = [],
+        var xs = [],
             ys = [];
-        for (const l of Object.values(layers))
-            for (const c of l)
-                for (const [x, y] of c) {
-                    xs.push(x);
-                    ys.push(y);
-                }
+        Object.keys(layers).forEach(function(k) {
+            layers[k].forEach(function(c) {
+                c.forEach(function(p) {
+                    xs.push(p[0]);
+                    ys.push(p[1]);
+                });
+            });
+        });
         if (!xs.length)
             return null;
-        const pad = 0.12;
-        let minX = Math.min(...xs),
-            maxX = Math.max(...xs),
-            minY = Math.min(...ys),
-            maxY = Math.max(...ys);
-        const pw = (maxX - minX) * pad,
+        var pad = 0.08;
+        var minX = Math.min.apply(null, xs),
+            maxX = Math.max.apply(null, xs);
+        var minY = Math.min.apply(null, ys),
+            maxY = Math.max.apply(null, ys);
+        var pw = (maxX - minX) * pad,
             ph = (maxY - minY) * pad;
         minX -= pw;
         maxX += pw;
         minY -= ph;
         maxY += ph;
-        const W = maxX - minX,
+        var W = maxX - minX,
             H = maxY - minY;
-        const toP = ([x, y]) => `${((x - minX) / W * 500).toFixed(1)},${((1 - (y - minY) / H) * 500).toFixed(1)}`;
-        const poly = c => "M" + c.map(toP).join("L") + "Z";
-        const line = c => "M" + c.map(toP).join("L");
-        let p = "";
-        for (const c of layers.apron)
-            p += `<path d="${poly(c)}" fill="${color}" fill-opacity="0.12" stroke="${color}" stroke-width="0.5" stroke-opacity="0.3"/>`;
-        for (const c of layers.terminal)
-            p += `<path d="${poly(c)}" fill="${color}" fill-opacity="0.4"  stroke="${color}" stroke-width="0.5"/>`;
-        for (const c of layers.taxiway)
-            p += `<path d="${line(c)}" fill="none" stroke="${color}" stroke-width="1.5" stroke-opacity="0.55" stroke-linecap="round" stroke-linejoin="round"/>`;
-        for (const c of layers.runway) {
-            p += `<path d="${poly(c)}" fill="${color}" fill-opacity="1" stroke="${color}" stroke-width="0.5"/>`;
-            p += `<path d="${line(c)}" fill="none" stroke="${color}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`;
+        var VW = 800,
+            VH = Math.round(VW * H / W);
+        function toP(p) {
+            return ((p[0] - minX) / W * VW).toFixed(1) + "," + ((1 - (p[1] - minY) / H) * VH).toFixed(1);
         }
-        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">${p}</svg>`;
+        function poly(c) {
+            return "M" + c.map(toP).join("L") + "Z";
+        }
+        function line(c) {
+            return "M" + c.map(toP).join("L");
+        }
+        var p = "";
+        layers.apron.forEach(function(c) {
+            p += '<path d="' + poly(c) + '" fill="' + color + '" fill-opacity="0.12" stroke="' + color + '" stroke-width="0.8" stroke-opacity="0.2"/>';
+        });
+        layers.terminal.forEach(function(c) {
+            p += '<path d="' + poly(c) + '" fill="' + color + '" fill-opacity="0.35" stroke="' + color + '" stroke-width="0.8"/>';
+        });
+        layers.taxiway.forEach(function(c) {
+            p += '<path d="' + line(c) + '" fill="none" stroke="' + color + '" stroke-width="1.5" stroke-opacity="0.4" stroke-linecap="round" stroke-linejoin="round"/>';
+        });
+        layers.runway.forEach(function(c) {
+            p += '<path d="' + poly(c) + '" fill="' + color + '" fill-opacity="0.9" stroke="' + color + '" stroke-width="0.5"/>';
+            p += '<path d="' + line(c) + '" fill="none" stroke="' + color + '" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.9"/>';
+        });
+        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + VW + ' ' + VH + '" preserveAspectRatio="xMidYMid meet" width="100%" height="100%">' + p + '</svg>';
     }
 
-    async function loadMap(icao) {
-        const key = icao + "_" + theme;
+    function loadMap(icao) {
+        var key = icao + "_" + curTheme;
         if (mapCache[key])
-            return mapCache[key];
-        const coords = COORDS[icao];
+            return Promise.resolve(mapCache[key]);
+        var coords = COORDS[icao];
         if (!coords)
-            return null;
-        try {
-            const res = await fetch(`${MAP_API}?lat=${coords.lat}&lon=${coords.lon}&icao=${icao}`);
-            if (!res.ok)
+            return Promise.resolve(null);
+        var color = THEMES[curTheme].map;
+        return fetch(MAP_API + "?lat=" + coords.lat + "&lon=" + coords.lon + "&icao=" + icao)
+        .then(function(r) {
+            if (!r.ok)
                 return null;
-            const data = await res.json();
-            if (!data.elements || !data.elements.length)
+            return r.json();
+        })
+        .then(function(data) {
+            if (!data || !data.elements || !data.elements.length)
                 return null;
-            const svg = buildSVG(data, coords.lat, THEMES[theme].map);
+            var svg = buildSVG(data, coords.lat, color);
             if (svg)
                 mapCache[key] = svg;
             return svg;
-        } catch (e) {
+        })
+        .catch(function() {
             return null;
-        }
+        });
     }
 
-    // ── Poster Render ─────────────────────────────────────────────────────────────
-    async function renderPoster() {
-        const day = $("selDay").value,
-            month = $("selMonth").value,
-            year = $("selYear").value;
-        if (!state.icao || !day || !month || !year) {
-            $("posterEmpty").style.display = "flex";
-            $("poster").style.display = "none";
+    // ── Draw Poster ───────────────────────────────────────────────────────────────
+    function drawPoster() {
+        var day = G("selDay").value,
+            month = G("selMonth").value,
+            year = G("selYear").value;
+        var pempty = G("pempty"),
+            poster = G("poster");
+        if (!S.icao || !day || !month || !year) {
+            pempty.style.display = "flex";
+            poster.style.display = "none";
             return;
         }
-        const T = THEMES[theme];
-        const dateObj = new Date(Date.UTC(+year, +month - 1, +day));
-        const dayStr = String(dateObj.getUTCDate()).padStart(2, "0");
-        const monStr = MON_NAMES[dateObj.getUTCMonth()];
-        const dayName = DAY_NAMES[dateObj.getUTCDay()];
-        const m = state.selected;
-        const d = decode(m?.raw);
-        const timeStr = m ? (m.time || "") : "";
+        pempty.style.display = "none";
+        poster.style.display = "flex";
 
-        $("posterEmpty").style.display = "none";
-        const el = $("poster");
-        el.style.display = "flex";
-        el.style.background = T.bg;
+        var T = THEMES[curTheme];
+        var dateObj = new Date(Date.UTC(+year, +month - 1, +day));
+        var dayStr = String(dateObj.getUTCDate()).padStart(2, "0");
+        var monStr = MONTHS[dateObj.getUTCMonth()];
+        var dayName = DAYS[dateObj.getUTCDay()];
+        var m = S.sel;
+        var info = AINFO[S.icao] || {};
+        var icaoSpaced = S.icao.split("").join(" ");
+        var MF = "font-family:'Space Mono',monospace";
+        var SF = "font-family:'Inter',sans-serif";
 
-        el.innerHTML = `
-    <div class="scanlines"></div>
-    <div style="border-bottom:2px solid ${
-        T.text};padding-bottom:2%;margin-bottom:2%">
-      <div style="font-size:clamp(6px,1.3vw,8px);letter-spacing:0.3em;color:${T.muted};margin-bottom:2%;font-family:'Space Mono',monospace">WEATHER OBSERVATION RECORD</div>
-      <div style="font-size:clamp(20px,5.5vw,36px);font-weight:700;color:${T.text};line-height:1;font-family:'Space Mono',monospace">${state.icao}</div>
-      <div style="font-size:clamp(6px,1.2vw,8px);color:${T.muted};margin-top:1%;letter-spacing:0.08em;font-family:'Space Mono',monospace">${state.name.toUpperCase()}</div>
-    </div>
-    <div style="margin-bottom:2%">
-      <div style="font-size:clamp(5px,1vw,7px);letter-spacing:0.35em;color:${
+        poster.style.background = T.bg;
 
-        T.accent};margin-bottom:1%;font-family:'Space Mono',monospace">${dayName}</div>
-      <div style="display:flex;align-items:baseline;gap:3%">
-        <span style="font-size:clamp(28px,8vw,50px);font-weight:700;color:${
-        T.text};line-height:1;font-family:'Space Mono',monospace">${dayStr}</span>
-        <div>
-          <div style="font-size:clamp(11px,3vw,18px);font-weight:700;color:${
-        T.text};font-family:'Space Mono',monospace">${monStr}</div>
-          <div style="font-size:clamp(8px,1.8vw,12px);color:${T.muted};font-family:'Space Mono',monospace">${year}</div>
-        </div>
-      </div>
-    </div>
-    <div style="height:1px;background:linear-gradient(90deg,${
+        // Build bottom info rows as plain HTML (no regex, no complex expressions)
+        var infoRows = "";
+        infoRows += "<tr><td style='text-align:left'>" + S.name.toUpperCase() + "</td><td style='text-align:right'>AIRPORT</td></tr>";
+        infoRows += "<tr><td colspan='2'>IATA-Code: " + (info.iata || "—") + ", ICAO-Code: " + S.icao + "</td></tr>";
+        infoRows += "<tr><td style='text-align:left'>" + (info.lat || "—") + "</td><td style='text-align:right'>" + (info.lon || "—") + "</td></tr>";
+        infoRows += "<tr><td style='text-align:left'>" + (info.elev || "—") + "</td><td style='text-align:right'>" + (info.elevFt || "") + "</td></tr>";
+        infoRows += "<tr><td style='text-align:left'>" + (info.rwy || "—") + "</td><td style='text-align:right'>" + (info.rwyd || "") + "</td></tr>";
 
+        var metarLine = m ? m.raw : "<span style='color:" + T.muted + ";font-style:italic'>Uhrzeit wählen</span>";
 
-        T.accent},transparent);margin-bottom:2%"></div>
-    <div id="mapBox" style="width:100%;height:150px;display:flex;align-items:center;justify-content:center;margin-bottom:2%;overflow:hidden">
-      <div style="color:${
-        T.muted};font-size:8px;font-family:'Space Mono',monospace;letter-spacing:0.15em">LADE KARTE...</div>
-    </div>
-    <div style="height:1px;background:linear-gradient(90deg,${
-        T.accent},transparent);margin-bottom:2%"></div>
-    <div style="flex:1;overflow:hidden;min-height:0">
-      ${
-        m ? `
-        <div style="font-size:clamp(5px,0.9vw,6px);letter-spacing:0.3em;color:${T.accent};margin-bottom:2%;font-family:'Space Mono',monospace">METAR · ${timeStr} UTC</div>
-        <div style="font-size:clamp(5px,1.1vw,7px);color:${T.text};line-height:1.6;word-break:break-all;background:rgba(128,128,128,0.08);padding:3%;border-radius:3px;margin-bottom:2%;font-family:'Space Mono',monospace">${m.raw}</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2% 4%">
-          ${
-        [["WIND", d.wind], ["SICHT", d.vis], ["TEMP", d.temp], ["QNH", d.qnh], ["WOLKEN", d.clouds]].map(([k, v]) => `
-          <div style="border-top:1px solid ${T.divider};padding-top:3%">
-            <div style="font-size:clamp(4px,0.8vw,6px);color:${T.accent};letter-spacing:0.2em;margin-bottom:2%;font-family:'Space Mono',monospace">${k}</div>
-            <div style="font-size:clamp(6px,1.1vw,8px);color:${T.text};font-weight:700;font-family:'Space Mono',monospace">${v}</div>
-          </div>`).join("")}
-        </div>`
-        : `<div style="color:${T.muted};font-size:clamp(7px,1.3vw,9px);font-style:italic;font-family:'Space Mono',monospace;margin-top:4%">Uhrzeit wählen für METAR-Anzeige</div>`}
-    </div>
-    <div style="margin-top:2%;padding-top:2%;border-top:1px solid ${
-        T.divider};display:flex;justify-content:space-between">
-      <span style="font-size:clamp(4px,0.8vw,6px);color:${T.muted};font-family:'Space Mono',monospace">IEM ASOS · © OSM</span>
-      <span style="font-size:clamp(4px,0.8vw,6px);color:${T.accent};font-family:'Space Mono',monospace">WAIRWEBELONG ©</span>
-    </div>`
-        ;
+        poster.innerHTML =
+        "<div class='scanlines'></div>" +
+        // HEADER: ICAO + name centered
+        "<div style='text-align:center;margin-bottom:5%'>" +
+        "<div style='font-size:clamp(20px,5.5vw,38px);font-weight:700;color:" + T.text + ";letter-spacing:0.25em;" + MF + "'>" + icaoSpaced + "</div>" +
+        "<div style='font-size:clamp(11px,3vw,20px);font-weight:700;color:" + T.text + ";margin-top:1%;" + SF + "'>" + S.name + "</div>" +
+        "</div>" +
+        // DATE
+        "<div style='margin-bottom:4%'>" +
+        "<div style='font-size:clamp(8px,1.6vw,11px);font-weight:700;color:" + T.text + ";letter-spacing:0.1em;margin-bottom:2%;" + MF + "'>" + dayName + "</div>" +
+        "<div style='display:flex;align-items:flex-end;gap:3%;border-bottom:1px solid " + T.divider + ";padding-bottom:3%'>" +
+        "<span style='font-size:clamp(40px,10vw,72px);font-weight:700;color:" + T.text + ";line-height:0.85;" + MF + "'>" + dayStr + "</span>" +
+        "<div style='line-height:1.05;padding-bottom:1%'>" +
+        "<div style='font-size:clamp(15px,3.8vw,26px);font-weight:700;color:" + T.text + ";" + MF + "'>" + monStr + "</div>" +
+        "<div style='font-size:clamp(15px,3.8vw,26px);font-weight:700;color:" + T.text + ";" + MF + "'>" + year + "</div>" +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        // METAR raw
+        "<div style='background:rgba(128,128,128,0.1);border-radius:3px;padding:2.5% 3%;margin-bottom:4%'>" +
+        "<div style='font-size:clamp(6px,1.4vw,10px);color:" + T.text + ";white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" + MF + "'>" + metarLine + "</div>" +
+        "</div>" +
+        // MAP
+        "<div id='mapBox' style='width:100%;height:30%;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0.2;margin-bottom:4%'>" +
+        "<div style='color:" + T.muted + ";font-size:8px;" + MF + ";letter-spacing:0.15em'>LADE KARTE...</div>" +
+        "</div>" +
+        // BOTTOM INFO
+        "<div style='border-top:1px solid " + T.divider + ";padding-top:3%'>" +
+        "<table style='width:100%;border-collapse:collapse;font-size:clamp(5px,1.1vw,8px);color:" + T.text + ";line-height:2;" + MF + "'>" +
+        infoRows +
+        "</table>" +
+        "<div style='text-align:center;margin-top:3%;font-size:clamp(8px,1.7vw,12px);font-weight:700;color:" + T.text + ";letter-spacing:0.15em;font-family:Arial,sans-serif'>WAIRWEBELONG</div>" +
+        "<div style='text-align:left;margin-top:1%;font-size:clamp(5px,0.9vw,7px);color:" + T.muted + ";" + MF + "'>IEM ASOS · OSM</div>" +
+        "</div>";
 
         if (m)
-            $("posterNote").style.display = "block";
+            G("pnote").style.display = "block";
 
         // Load map async
-        const mapBox = document.getElementById("mapBox");
-        if (mapBox) {
-            const svg = await loadMap(state.icao);
-            if (mapBox.isConnected) {
-                mapBox.innerHTML = svg || `<div style="color:${T.muted};font-size:8px;font-family:'Space Mono',monospace;opacity:0.5">KEINE KARTENDATEN</div>`;
-            }
-        }
+        loadMap(S.icao).then(function(svg) {
+            var box = document.getElementById("mapBox");
+            if (box && svg)
+                box.innerHTML = svg;
+        });
     }
 
-    // ── Event Listeners ───────────────────────────────────────────────────────────
-    $("icaoInput").addEventListener("keydown", e => {
+    // ── Shopify Cart ─────────────────────────────────────────────────────────────
+    // Shopify variant IDs - replace these with your real variant IDs after creating the product in Shopify
+    var SHOPIFY_VARIANTS = {
+        A4: "YOUR_A4_VARIANT_ID",
+        A3: "YOUR_A3_VARIANT_ID",
+        A2: "YOUR_A2_VARIANT_ID",
+        A1: "YOUR_A1_VARIANT_ID",
+    };
+
+    function doAddToCart() {
+        if (!S.sel) {
+            alert("Bitte zuerst eine Uhrzeit wählen.");
+            return;
+        }
+        var variantId = SHOPIFY_VARIANTS[curSize];
+        if (!variantId || variantId.indexOf("YOUR") === 0) {
+            alert("Shopify noch nicht verbunden. Bitte zuerst die Variant-IDs eintragen.");
+            return;
+        }
+        // Build properties to pass to Shopify
+        var props = {
+            "Flughafen": S.icao + " – " + S.name,
+            "Datum": G("selDay").value + "." + G("selMonth").value + "." + G("selYear").value,
+            "METAR": S.sel.raw,
+            "Farbthema": curTheme,
+            "Format": curSize
+        };
+        var url = "/cart/add?id=" + variantId + "&quantity=1";
+        Object.keys(props).forEach(function(k) {
+            url += "&properties[" + encodeURIComponent(k) + "]=" + encodeURIComponent(props[k]);
+        });
+        window.location.href = url;
+    }
+
+    // ── Event listeners ───────────────────────────────────────────────────────────
+    G("icaoInput").addEventListener("keydown", function(e) {
         if (e.key === "Enter")
-            handleSearch();
+            doSearch();
     });
-    $("selMonth").addEventListener("change", () => buildDays($("selYear").value, $("selMonth").value));
-    $("selYear").addEventListener("change", () => buildDays($("selYear").value, $("selMonth").value));
-    $("selDay").addEventListener("change", () => renderPoster());
-    $("selMonth").addEventListener("change", () => renderPoster());
-    $("selYear").addEventListener("change", () => renderPoster());
+    G("selMonth").addEventListener("change", function() {
+        buildDays(G("selYear").value, G("selMonth").value);
+        drawPoster();
+    });
+    G("selYear").addEventListener("change", function() {
+        buildDays(G("selYear").value, G("selMonth").value);
+        drawPoster();
+    });
+    G("selDay").addEventListener("change", function() {
+        drawPoster();
+    });
     </script>
 </body>
 </html>
