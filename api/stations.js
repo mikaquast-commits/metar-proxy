@@ -9,59 +9,73 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // OurAirports CSV - free, global, 70k+ airports with IATA + ICAO
     const r = await fetch("https://davidmegginson.github.io/ourairports-data/airports.csv", {
       headers: { "User-Agent": "WairwebElongPosterShop/1.0" },
       signal: AbortSignal.timeout(15000)
     });
     if (!r.ok) throw new Error(`OurAirports HTTP ${r.status}`);
     const csv = await r.text();
-
     const lines = csv.split("\n");
-    const header = lines[0].split(",");
 
-    // Find column indices
-    const col = (name) => header.findIndex(h => h.replace(/"/g,'').trim() === name);
-    const iIcao     = col("ident");
-    const iIata     = col("iata_code");
-    const iName     = col("name");
-    const iType     = col("type");
-    const iLat      = col("latitude_deg");
-    const iLon      = col("longitude_deg");
-    const iCountry  = col("iso_country");
+    // Parse CSV header properly
+    function parseCSVLine(line) {
+      const result = [];
+      let current = "";
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') {
+          inQuotes = !inQuotes;
+        } else if (ch === ',' && !inQuotes) {
+          result.push(current);
+          current = "";
+        } else {
+          current += ch;
+        }
+      }
+      result.push(current);
+      return result;
+    }
+
+    const header = parseCSVLine(lines[0]);
+    const col = (name) => header.findIndex(h => h.trim() === name);
+
+    const iIcao    = col("ident");
+    const iName    = col("name");
+    const iType    = col("type");
+    const iLat     = col("latitude_deg");
+    const iLon     = col("longitude_deg");
+    const iCountry = col("iso_country");
+    const iElev    = col("elevation_ft");
+    const iIata    = col("iata_code");
 
     const results = [];
 
     for (let i = 1; i < lines.length && results.length < 10; i++) {
-      const row = lines[i].split(",").map(c => c.replace(/^"|"$/g,'').trim());
-      if (!row[iIcao]) continue;
+      if (!lines[i].trim()) continue;
+      const row = parseCSVLine(lines[i]);
 
-      // Only include airports with METAR (large/medium airports + small with ICAO)
       const type = row[iType] || "";
       if (type === "heliport" || type === "seaplane_base" || type === "closed") continue;
+      if (type === "small_airport") continue; // only medium/large for METAR
 
-      const icao = row[iIcao].toUpperCase();
-      const iata = (row[iIata] || "").toUpperCase();
-      const name = row[iName] || "";
+      const icao = (row[iIcao] || "").trim().toUpperCase();
+      const name = (row[iName] || "").trim();
       const nameUpper = name.toUpperCase();
 
-      // Match against ICAO or name only (no IATA)
-      if (
-        icao === q ||
-        icao.startsWith(q) ||
-        nameUpper.includes(q)
-      ) {
-        // Skip if ICAO is less than 3 chars
-        if (icao.length < 3) continue;
+      if (icao.length < 3) continue;
 
+      if (icao === q || icao.startsWith(q) || nameUpper.includes(q)) {
+        const lat = parseFloat(row[iLat]);
+        const lon = parseFloat(row[iLon]);
         results.push({
-          icao: icao,
-          iata: iata || null,
-          name: name,
-          country: row[iCountry] || "",
-          lat: parseFloat(row[iLat]) || null,
-          lon: parseFloat(row[iLon]) || null,
-          archive_begin: "2000",
+          icao,
+          name,
+          country: (row[iCountry] || "").trim(),
+          lat: isNaN(lat) ? null : lat,
+          lon: isNaN(lon) ? null : lon,
+          elev_ft: row[iElev] ? parseInt(row[iElev]) : null,
+          archive_begin: "1929",
         });
       }
     }
