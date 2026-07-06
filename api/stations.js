@@ -57,7 +57,10 @@ module.exports = async function handler(req, res) {
 
       const type = row[iType] || "";
       if (type === "heliport" || type === "seaplane_base" || type === "closed") continue;
-      if (type === "small_airport") continue; // nur Verkehrsflughäfen
+      if (type === "small_airport") continue;
+      // Nur Flughäfen mit IATA-Code = garantiert kommerzieller Verkehr
+      const iataCheck = (row[iIata] || "").trim();
+      if (!iataCheck) continue;
 
       const icao = (row[iIcao] || "").trim().toUpperCase();
       const name = (row[iName] || "").trim();
