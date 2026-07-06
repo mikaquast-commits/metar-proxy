@@ -1,6 +1,7 @@
 {
   "rewrites": [
-    { "source": "/metar", "destination": "/api/index" },
-    { "source": "/map",   "destination": "/api/map"   }
+    { "source": "/metar",    "destination": "/api/index" },
+    { "source": "/map",      "destination": "/api/index" },
+    { "source": "/stations", "destination": "/api/index" }
   ]
 }
