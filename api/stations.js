@@ -70,6 +70,7 @@ module.exports = async function handler(req, res) {
         const lon = parseFloat(row[iLon]);
         results.push({
           icao,
+          iata: (row[iIata] || "").trim().toUpperCase() || null,
           name,
           country: (row[iCountry] || "").trim(),
           lat: isNaN(lat) ? null : lat,
