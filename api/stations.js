@@ -57,7 +57,7 @@ module.exports = async function handler(req, res) {
 
       const type = row[iType] || "";
       if (type === "heliport" || type === "seaplane_base" || type === "closed") continue;
-      // Include all airport types that could have METAR
+      if (type === "small_airport") continue; // nur Verkehrsflughäfen
 
       const icao = (row[iIcao] || "").trim().toUpperCase();
       const name = (row[iName] || "").trim();
