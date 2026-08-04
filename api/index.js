@@ -36,7 +36,7 @@ module.exports = async function handler(req, res) {
   if (path === "/map" || (q.lat && q.lon && !q.icao_only)) {
     const { lat, lon } = q;
     if (!lat || !lon) return res.status(400).json({ error: "Parameter fehlen: lat, lon" });
-    const radius = 15000;
+    const radius = 8000;
     const query = `[out:json][timeout:30];(way['aeroway'~'runway|taxiway|apron|terminal|hangar'](around:${radius},${lat},${lon}););out geom;`;
     try {
       const r = await fetch("https://overpass-api.de/api/interpreter", {
